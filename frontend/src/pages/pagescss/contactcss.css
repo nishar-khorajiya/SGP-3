@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&family=Roboto&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins",sans-serif;
+}
+
+body{
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactcontainer{
+  width: 80%;
+  /* background: #fff; */
+  border-radius: 6px;
+  padding: 20px 60px 40px 40px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0);
+  background: #c8e8e9;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.contactcontainer .contactcontent{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactcontainer .contactcontent .left-side{
+  /* width: 25%;
+  height: 100%;
+  position: relative; */
+  flex: 1;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* .contactcontent .left-side::before{
+  content: '';
+  position: absolute;
+  height: 70%;
+  width: 2px;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #afafb6;
+} */
+
+.contactcontent .left-side .details{
+  margin: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contactcontent .left-side .details .location-icon,.phone-icon,.email-icon{
+  font-size: 30px;
+  color: #3e2093;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.contactcontent .left-side .details .location-icon:hover,
+.contactcontent .left-side .details .phone-icon:hover,
+.contactcontent .left-side .details .email-icon:hover {
+  color: #ff6f61; /* Change the color on hover */
+}
+
+.contactcontent .left-side .details .topic{
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.contactcontent .left-side .details .text-one,
+.contactcontent .left-side .details .text-two{
+    font-size: 14px;
+    /* color: #afafb6; */
+}
+
+.contactcontainer .contactcontent .right-side{
+  /* width: 75%;
+  margin-left: 75px; */
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.contactcontainer .contactcontent .right-side .topic-text{
+  font-size: 25px;
+  font-weight: 600;
+  color: #3e2093;
+}
+
+.contactcontainer .contactcontent .right-side .topic-text .floating-input{
+  width: 50%;
+}
+
+form{
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.csocial-media-icons{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.csocial-media-icons .social-icon{
+  font-size: 30px;
+  margin: 0 10px;
+  color: #3e2093;
+  transition: color 0.3s;
+}
+
+.csocial-media-icons .social-icon:hover {
+  color: #ff6f61; /* Change the color on hover */
+}
+
+.csocial-media-icons .instagram-icon{
+  color: #833AB4; /* Instagram's purple color */
+}
+
+.csocial-media-icons .instagram-icon:hover {
+  color: #ff6f61; /* Change the color on hover */
+}
+
+.csocial-media-icons .whatsapp-icon{
+  color: #25D366; /* WhatsApp's green color */
+}
+
+.csocial-media-icons .whatsapp-icon:hover {
+  color: #ff6f61; /* Change the color on hover */
+}
+
+.form-floating input,
+.form-floating textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+/* Increase the size of address and message sections */
+.form-floating #exampleFormAddress,
+.form-floating #exampleFormControlTextarea1 {
+  height: 100px; /* Increase the height as needed */
+}
+
+.form-floating textarea {
+  height: 150px; /* Keep the height for the rest of the textareas */
+}
+
+/* Apply hover effect */
+.form-floating input:hover,
+.form-floating textarea:hover {
+  border-color: #ff6f61; /* Change the border color on hover */
+}
+
+.form-button {
+  background-color: #3e2093;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Apply hover effect on the Submit button */
+.form-button:hover {
+  background-color: #ff6f61; /* Change the background color on hover */
+  color: #fff; /* Keep the text color white on hover */
+}
+
+.location-link {
+  color: #3e2093; /* Change link color to match your design */
+  text-decoration: none; /* Remove underline from link */
+  display: inline-block; /* Display as block to match the layout */
+}
+
+.black-text{
+  color: #000;
+}
+
+.defemails{
+  text-decoration: none; /* Remove underline from link */
+}

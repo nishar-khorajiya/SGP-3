@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.rcontainer{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4070f4;
+}
+
+.form{
+    max-width: 430px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 6px;
+    background: #fff;
+}
+
+header{
+    font-size:28px;
+    font-weight: 600;
+    color:#232836;
+    text-align: center;
+}
+
+.form .field{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+.field input,
+.field button{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.field button{
+    color: #fff;
+    background:#0171d3;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.field button:hover{
+    background-color: #016dcb;
+}
+
+.field input{
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid #CACACA;
+}
+
+.field input:focus{
+    border-bottom-width: 2px;
+}
+
+.form-link{
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+span .login-link{
+    font-size: 16px;
+    font-weight: 400;
+    color: #232836;
+}
+
+.form-link span .login-link{
+    text-decoration: none;
+    color: #0171d3;
+}
+
+.form-content .form-link span .login-link:hover{
+    text-decoration: underline;
+}
+
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+}
+
+.line{
+    height: 1px;
+    width: 100%;
+    position: relative;
+    margin: 36px 0;
+    background-color: #d4d4d4;
+}
+
+.line::before{
+    content: 'Or';
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    color:#232836;
+    padding: 0 15px;
+}
+
+.media-options .field{
+    display: flex;
+    /* background-color: #4267b2; */
+    align-items: center;
+    justify-content: center;
+}
+
+.media-options .facebook{
+    color: #fff;
+    background-color: #4267b2;
+    text-decoration: none;
+}
+
+.field .facebook .facebook-icon{
+    height: 28px;
+    width: 28px;
+    color: #0171d3;
+    font-size:20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.media-options .facebook .facebook-icon,
+img.google-icon{
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+}
+
+img.google-icon{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+
+.media-options .google {
+    border: 1px solid #CACACA;
+}
+
+.media-options .google span{
+    font-weight: 500;
+    opacity: 0.6;
+    color: #232836;
+}
+
+.media-options .google span{
+    text-decoration: none;
+}
+
+.field.google {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit the text color */
+    display: flex; /* Make it a flex container to align the icon and text horizontally */
+    align-items: center; /* Center items vertically within the container */
+  }
+  
+  .field.google:hover {
+    text-decoration: none; /* Remove underline on hover */
+  }
+
+  .custom-close-button {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: auto; /* Push the close button to the right */
+    padding: 8px; /* Add padding to the close button */
+    transition: padding 0.3s; /* Add a transition effect for padding changes */
+  }
+  
+  /* Adjust the close button appearance on hover */
+  .custom-close-button:hover {
+    padding: 12px; /* Increase padding on hover */
+    background-color: #007bff; /* Change background color on hover */
+    border-radius: 50%; /* Make the close button circular on hover */
+  }
+
+  .media-options .google,
+  .media-options .facebook {
+    transition: transform 0.3s;
+  }
+
+  .media-options .google:hover,
+  .media-options .facebook:hover{
+    transform: scale(1.1); 
+  }
+
+  .register-button{
+    transition: transform 0.3s;
+  }
+
+  .register-button:hover{
+    transform: scale(1.1);
+  }
+  

@@ -1,0 +1,11 @@
+/* Add hover effect and outline to image cards */
+.image-card {
+    position: relative;
+    transition: transform 0.3s, outline-color 0.3s;
+  }
+  
+  .image-card:hover {
+    transform: scale(1.05);
+    outline: 3px solid #3e2093;
+  }
+  
