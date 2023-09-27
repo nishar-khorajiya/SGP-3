@@ -18,11 +18,6 @@ const Header = ({isLoggedIn}) => {
         Ashutosh Enterprise
       {/* add icon by ctrl+i */}
         </Link>
-
-       
-      
-
-      
       <ul className="nav nav-pills" style={{paddingLeft:"650px"}} >
         {/* style={{paddingBottom:"5px"}} */}
         {/* navbar-nav ms-auto mb-2 mb-lg-0 */}
