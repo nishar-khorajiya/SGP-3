@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Layout from '../../components/Layout/Layout';
 import { logindes } from '../pagescss/logincss.css';
 import { Link } from 'react-router-dom';
@@ -12,40 +13,69 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
 import { useState } from 'react';
+import { load } from 'gapi-script';
+import { useAuth } from '../auth/AuthContext';
 library.add(faEye,faEyeSlash);
-
 
 
 // const Login = () => {
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
   const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
 
-  const clientId="84282587711-factgcb2h9k62pgd33p6kbbthm656ffk.apps.googleusercontent.com";
-  const [showLoginButton, setShowLoginButton]=useState(true);
-  const [showLogoutButton, setShowLogoutButton]=useState(false);
+  const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
+  const [showLoginButton, setShowLoginButton] = useState(true);
+  const [showLogoutButton, setShowLogoutButton] = useState(false);
+  const { login, logout, user } = useAuth(); // Use the useAuth hook
+  const navigate = useNavigate(); // Use navigate to redirect
 
-  // const onLoginSuccess=(res)=>{
-  //   console.log("Login success:",res.profileObj);
-  //   setShowLoginButton(false);
-  //   setShowLogoutButton(true);
-  //   setIsLoggedIn(true);//set the user to be logged in
+
+  const onLoginSuccess = (res) => {
+    console.log("Login success:", res.profileObj);
+    login(res.profileObj); // Set the user's data in the context
+    setShowLoginButton(false);
+    setShowLogoutButton(true);
+    navigate('/'); // Redirect to the homepage
+  };
+
+  // const google=()=>{
+  //   window.open("http://localhost:8080/auth/google/callback","_self")//added
   // }
-
-  const google=()=>{
-    window.open("http://localhost:8080/auth/google/callback","_self")
-  }
 
   const onFailureSuccess=(res)=>{
     console.log("Login faied:",res);
   }
 
-  const onSignoutSuccess=()=>{
-    alert("You have been Signedout Succeesfully");
+  const onSignoutSuccess = () => {
+    alert("You have been signed out successfully");
+    logout(); // Clear the user's data from the context
     setShowLoginButton(true);
     setShowLogoutButton(false);
-  }
+    navigate('/'); // Redirect to the homepage
+  };
 
+  useEffect(() => {
+    // Load the Google API client library
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/api.js';
+    script.onload = () => {
+      // Initialize the Google API client library
+      window.gapi.load('client:auth2', () => {
+        window.gapi.client.init({
+          clientId: clientId,
+          scope: "profile"
+        }).then(() => {
+          // The client library has been initialized successfully
+        }).catch((error) => {
+          console.error("Error initializing gapi client:", error);
+        });
+      });
+    };
+
+    document.body.appendChild(script);
+  }, [clientId]);
+
+  // var accessToken = gapi.auth.getToken().access_token;
   return (
     <>
       <logindes>
@@ -85,16 +115,37 @@ const Login = ({ setIsLoggedIn }) => {
               <div className='line'></div>
 
               <div className='media-options'>
-                {
+                {/* {
                   showLoginButton ? <GoogleLogin
                     clientId={clientId}
                     buttonText="Login with Google"
                     // onSuccess={onLoginSuccess}
-                    onSuccess={google}
+                    onSuccess={onLoginSuccess}
                     onFailure={onFailureSuccess} 
                     cookiePolicy={'single_host_origin'}
                     className='field goggle'
                   /> : null
+                }
+                {
+                  showLogoutButton ?
+                    <GoogleLogout
+                      clientId={clientId}
+                      buttonText="Logout"
+                      onLogoutSuccess={onSignoutSuccess}
+                      className='field google'
+                    />
+                    : null
+                } */}
+                {
+                  showLoginButton ? <GoogleLogin
+                  clientId={clientId}
+                  buttonText="Login with Google"
+                  onSuccess={onLoginSuccess}
+                  onFailure={onFailureSuccess}
+                  cookiePolicy={'single_host_origin'}
+                  prompt="select_account" // Add this line
+                  className='field goggle'
+                /> : null
                 }
                 {
                   showLogoutButton ?
@@ -120,3 +171,4 @@ const Login = ({ setIsLoggedIn }) => {
 }
 
 export default Login;
+
