@@ -14,15 +14,15 @@ library.add(faEye,faEyeSlash);
 
 
 // const Register = () => {
-  const Register = ({ setIsLoggedIn }) => {
+  const Register = () => {
   // const [PasswordInputType, ToggleIcon]= usePasswordToggle();
 
   const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
   const [ConfirmPasswordInputType, ToggleIconConfirmPassword, toggleVisibilityConfirmPassword] = usePasswordToggle();
   
- const onRegisterSuccess = () => {
-  setIsLoggedIn(true);
- }
+//  const onRegisterSuccess = () => {
+//   setIsLoggedIn(true);
+//  }//added
 
 
   return (

@@ -1,12 +1,12 @@
+const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const passport= require('passport');
-const GOOGLE_CLIENT_ID="84282587711-91qkj3gddd3bfti247dhpb99d4am991c.apps.googleusercontent.com"
-const GOOGLE_CLIENT_SECRET="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"
+const GOOGLE_CLIENT_ID="84282587711-6vv8l9h2tpll2jrhab06be7qnvvgl7ii.apps.googleusercontent.com"
+const GOOGLE_CLIENT_SECRET="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"
 
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback"
+    callbackURL: "http://localhost:8080/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     // User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -18,11 +18,11 @@ passport.use(new GoogleStrategy({
 
 passport.serializeUser(function(user, done) {
   done(null, user);
-}); 
+}); //added
 
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
-});
+});//added
 
 
 
