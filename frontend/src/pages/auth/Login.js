@@ -13,7 +13,7 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
 import { useState } from 'react';
-import { load } from 'gapi-script';
+// import { load } from 'gapi-script';
 import { useAuth } from '../auth/AuthContext';
 library.add(faEye,faEyeSlash);
 
@@ -26,7 +26,7 @@ const Login = () => {
   const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
   const [showLoginButton, setShowLoginButton] = useState(true);
   const [showLogoutButton, setShowLogoutButton] = useState(false);
-  const { login, logout, user } = useAuth(); // Use the useAuth hook
+  const { login, logout} = useAuth(); // Use the useAuth hook
   const navigate = useNavigate(); // Use navigate to redirect
 
 
