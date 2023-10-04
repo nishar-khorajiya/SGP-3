@@ -4,17 +4,29 @@ import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../pages/auth/AuthContext'; // Import useAuth from AuthContext
 
 const Header = () => {
-  const { user, logout } = useAuth(); // Use useAuth to access authentication context
-  const navigate = useNavigate(); // Use useNavigate for programmatic navigation
+  // const { user, logout } = useAuth(); // Use useAuth to access authentication context
+  const history = useNavigate(); // Use useNavigate for programmatic navigation
 
   const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+
+    localStorage.removeItem('token')
+    localStorage.removeItem('name')
+    history('login')
+  }
+
+  const getName = () => {
+    var fullName = localStorage.getItem('name');
+    if(fullName){
+    var firstNameMatch = fullName.match(/^\w+/);
+    }
+    if (firstNameMatch) {
+      return firstNameMatch[0];
+    }
+  }
 
   // Determine the CSS classes based on user login status
-  const navbarClasses = user ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
-  const brandClasses = user ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
+  const navbarClasses = localStorage.getItem('token') ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
+  const brandClasses = localStorage.getItem('token') ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
 
   return (
     <>
@@ -45,7 +57,7 @@ const Header = () => {
               Ashutosh Enterprise
             </Link>
 
-            <ul className="nav nav-pills ml-auto" style={{ paddingLeft: "350px" }}> 
+            <ul className="nav nav-pills ml-auto" style={{ paddingLeft: "350px" }}>
               <li className="nav-item">
                 <NavLink to="/" className="nav-link" aria-current="page">
                   Home
@@ -83,36 +95,17 @@ const Header = () => {
                   </li>
                 </ul>
               </li>
-              {user ? (
-                <>
+              {!localStorage.getItem('token') ?
+                <form className="d-flex">
                   <li className="nav-item">
-                    <span className="nav-link">
-                      Welcome, {user.name} {/* Display the user's name */}
-                    </span>
+                    <NavLink to="/register" className="nav-link">Register</NavLink>
                   </li>
                   <li className="nav-item">
-                    <button
-                      className="nav-link btn btn-link"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <NavLink to="/register" className="nav-link">
-                      Register
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink to="/login" className="nav-link">
-                      Login
-                    </NavLink>
-                  </li>
-                </>
-              )}
+                    <NavLink to="/login" className="nav-link">Login</NavLink>
+                  </li></form> :
+                <div style={{ color: 'blue' }}>
+                  <label className='mx-2 my-2'>{getName()}</label>
+                  <button className='btn btn-primary' onClick={handleLogout}>Logout</button></div>}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   Cart (0)
