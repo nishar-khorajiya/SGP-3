@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 const Home = () => {
   return (
-    <Layout title="E-Commerce Website">
+    <Layout title="Ashutosh Enterprise">
       {/* Automatic Carousel */}
       <Carousel>
         <Carousel.Item>

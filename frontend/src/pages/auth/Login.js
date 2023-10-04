@@ -55,11 +55,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    // Load the Google API client library
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
     script.onload = () => {
-      // Initialize the Google API client library
       window.gapi.load('client:auth2', () => {
         window.gapi.client.init({
           clientId: clientId,
@@ -83,8 +81,8 @@ const Login = () => {
           <section className='lcontainer forms'>
             <div className='form login'>
               <div className='form-content'>
-              <div class="modal-header">
-              <h1 class="fw-bold mb-0 fs-2">Login</h1>
+              <div className="modal-header">
+              <h1 className="fw-bold mb-0 fs-2">Login</h1>
               <Link to="/" className="btn-close custom-close-button" aria-label="Close"></Link>
                </div>
 
