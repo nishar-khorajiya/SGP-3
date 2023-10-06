@@ -104,7 +104,7 @@ const Header = () => {
                     <NavLink to="/login" className="nav-link">Login</NavLink>
                   </li></form> :
                 <div style={{ color: 'blue' }}>
-                  <label className='mx-2 my-2'>{getName()}</label>
+                  <label className='mx-2 my-2'>{"Welcome,"+getName()}</label>
                   <button className='btn btn-primary' onClick={handleLogout}>Logout</button></div>}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">

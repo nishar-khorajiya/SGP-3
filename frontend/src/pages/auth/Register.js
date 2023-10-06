@@ -84,18 +84,6 @@ const Register = () => {
                   <div className='field input-field'>
                     <input type="email" placeholder='Email' className='form-control rounded-3 input' name='email' value={credentials.email} onChange={onChange} />
                   </div>
-                  {/* <div className='field input-field'>
-                    <input type={PasswordInputType} placeholder='Password' className='form-control rounded-3 password' />
-                    <span className="eye-icon">{ToggleIcon}</span>
-                  </div>
-                  <div className='field input-field'>
-                    <input type="password" placeholder='ConfirmPassword' className='form-control rounded-3 confirmpassword' />
-                    <span className="eye-icon">{ToggleIcon}</span>
-                  </div> */}
-                  {/* <div className="form-floating input-field">
-                      <input type="tel" placeholder="hone Number" className="form-control rounded-3" value={credentials.phone} name='phone' onChange={onChange} id="floatingPhonenumber"  />
-                     
-                    </div> */}
                     <div className='field input-field'>
                     <input type="tel" placeholder='Phone Number' className='form-control rounded-3 input' value={credentials.phone} name='phone'onChange={onChange} id="floatingPhonenumber" />
                   </div>

@@ -16,6 +16,10 @@ font-family: 'Roboto', sans-serif; */
   background-color: #fff;
   padding-left: 20px; /* Adjust the left padding to create space for the brand/logo */
   padding-right: 20px; /* Adjust the right padding for spacing on both sides */
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Add this to align brand and nav-pills */
+  align-items: center; /* Center vertically */
 }
 
 .navbar-brand{
@@ -34,6 +38,17 @@ font-family: 'Roboto', sans-serif; */
   margin: 0 auto;
 }
 
+/* Styles specific to the logged-in state */
+.logged-in .navbar {
+  padding-left: 10px; /* Adjust the left padding when logged in */
+  padding-right: 10px; /* Adjust the right padding when logged in */
+}
+
+/* Styles specific to the logged-out state */
+.logged-out .navbar {
+  padding-left: 20px; /* Adjust the left padding when logged out */
+  padding-right: 20px; /* Adjust the right padding when logged out */
+}
 
 
 .nav-scroller {
@@ -88,23 +103,37 @@ font-family: 'Roboto', sans-serif; */
   margin-left: 20px;
 }
 
-.nav-pills {
+/* Styles specific to the logged-in state */
+.logged-in .nav-pills {
   margin-left: auto;
 }
 
-.nav-link {
+.logged-in .nav-link {
   padding: 10px 15px;
-}
-
-/* Styles specific to the logged-in state */
-.logged-in .navbar-brand {
-  margin-right: 65px;
+  margin-right: -10px; /* Adjust the right margin when logged in */
 }
 
 /* Styles specific to the logged-out state */
-.logged-out .navbar-brand {
-  margin-right: 200px;
+.logged-out .nav-pills {
+  margin-left: auto;
 }
+
+.logged-out .nav-link {
+  padding: 10px 15px;
+  margin-left: 3px; /* Commented out to remove right margin when logged out */
+  margin-right: 1px;
+}
+
+
+/* Styles specific to the logged-in state */
+/* .logged-in .navbar-brand {
+  margin-right: 65px;
+} */
+
+/* Styles specific to the logged-out state */
+/* .logged-out .navbar-brand {
+  margin-right: 200px;
+} */
 
 /* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
@@ -122,7 +151,7 @@ font-family: 'Roboto', sans-serif; */
 .footer-container {
   position: relative;
   width: 100%;
-  background: #3586ff;
+  background: rgba(0, 0, 0, 0.867);
   min-height: 100px;
   padding: 20px 0; /* Adjust top and bottom padding */
   display: flex;
@@ -233,3 +262,9 @@ font-family: 'Roboto', sans-serif; */
       background-position-x:1000px;
   }
 }
+
+
+
+
+
+
