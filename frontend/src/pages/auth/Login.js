@@ -3,33 +3,40 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Layout from '../../components/Layout/Layout';
 import { logindes } from '../pagescss/logincss.css';
 import { Link } from 'react-router-dom';
-// import { BiHide } from 'react-icons/bi'; 
-import { FaFacebook} from 'react-icons/fa'; // Import the Facebookfrom Font Awesome
-// import Gogglelogo from '../photospages/gogglelogo.jpg'; 
+import { FaFacebook} from 'react-icons/fa'; 
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
-import { useState } from 'react';
+// import { useState } from 'react';
 // import { load } from 'gapi-script';
 // import { useAuth } from '../auth/AuthContext';
+
+import { useState,useContext } from 'react';
+import ProviderContext from '../../Context/ProviderContext';
+import { useAuth } from '../../Context/auth';
 library.add(faEye,faEyeSlash);
 
 
 const Login = () => {
+  const show = useContext(ProviderContext)
   const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
 
   const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
+
   // const [showLoginButton, setShowLoginButton] = useState(true);
   // const [showLogoutButton, setShowLogoutButton] = useState(false);
   // const { login, logout} = useAuth(); // Use the useAuth hook
-  const [showLoginButton] = useState(true);
-  const [showLogoutButton] = useState(false);
+  // const [showLoginButton] = useState(true);
+  // const [showLogoutButton] = useState(false);
+
+  const [showLoginButton, setShowLoginButton] = useState(true);
+  const [showLogoutButton, setShowLogoutButton] = useState(false);
+  // const { login, logout} = useAuth(); // Use the useAuth hook
  
   const history = useNavigate()
   const [credentials, setCredentials] = useState({ email: "", password: "" })
+  const [auth,setAuth]=useAuth();
 
   const handleSubmit = async (e) => {
     console.log()
@@ -46,16 +53,30 @@ const Login = () => {
       const json = await response.json();
       // console.log(json.user.name)
 
-      if (json.success) {
-        localStorage.setItem('token', json.token)
-        localStorage.setItem('name', json.user.name)
-
+      if (json.data.success) {
+       
+        show.updateError(1,'success',"Login successfully");
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
+        // localStorage.setItem('token', json.token)
+        // localStorage.setItem('name', json.user.name)
+        localStorage.setItem('auth',JSON.stringify(json.data))
         history('/')
+        setAuth({
+          ...auth,
+          user:json.data.user,
+          token:json.data.token
+        })
         // props.showAlert("Login successfully",'success')
       }
       else {
+        show.updateError(1,'danger',JSON.stringify(json.data.message));
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
         console.log("failed")
-        history('../Pagenotfound')
+        history('../Login')
         // props.showAlert("Login failed",'danger')
       }
     }

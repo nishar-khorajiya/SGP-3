@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import StatesProvider from './Context/StatesProvider';
 import HomePage from './pages/HomePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -8,12 +9,13 @@ import Pagenotfound from './pages/Pagenotfound';
 import Gallery from './pages/gallery';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
-import { AuthProvider } from './pages/auth/AuthContext';
+// import { AuthProvider } from './pages/auth/AuthContext';
 
 function App() {
   return (
+    <>
+    <StatesProvider>
     <Router>
-      <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Register" element={<Register />} />
@@ -24,8 +26,9 @@ function App() {
           <Route path="/policy" element={<Policy />} />
           <Route path="/*" element={<Pagenotfound />} />
         </Routes>
-      </AuthProvider>
     </Router>
+    </StatesProvider>
+    </>
   );
 }
 

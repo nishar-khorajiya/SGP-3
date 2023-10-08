@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import { registerdes } from '../pagescss/registercss.css';
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // import { BiHide, BiShow } from 'react-icons/bi'; // Import the Hide icon from react-icons/bi
 import { FaFacebook } from 'react-icons/fa'; // Import the Facebook from Font Awesome
 import Gogglelogo from '../photospages/gogglelogo.jpg';
-
+import ProviderContext from '../../Context/ProviderContext';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ library.add(faEye, faEyeSlash);
 const Register = () => {
 
   const history = useNavigate();
-
+  const show = useContext(ProviderContext)
   const [credentials, setCredentials] = useState({ name: "", email: "", phone: "", password: "",cpassword: "" })
 
   const handleSubmit = async (e) => {
@@ -36,6 +36,10 @@ const Register = () => {
       console.log(json)
 
       if (json.success) {
+        show.updateError(1,'success',"Registered successfully");
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
         localStorage.setItem('token', json.token)
         localStorage.setItem('name', json.user.name)
         history('/')
@@ -43,8 +47,12 @@ const Register = () => {
         // props.showAlert("created user successfully", 'success')
       }
       else {
+        show.updateError(1,'danger',json.message);
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
         // props.showAlert("signup failed", 'danger')
-        history('../Pagenotfound')
+        history('../Register')
         console.log('Signup Failed');
       }
     }

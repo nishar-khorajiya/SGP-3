@@ -9,22 +9,22 @@ export const registerController = async (req, res) => {
         // const {  email, password } = req.body;
 
         //is any field blank
-        if (!name) { return res.send({ error: 'name is required' }) }
-        if (!email) { return res.send({ error: 'email is required' }) }
-        if (!password) { return res.send({ error: 'password is required' }) }
-        if (!cpassword) { return res.send({ error: 'confirm password is required' }) }
-        if (!phone) { return res.send({ error: 'phone is required' }) }
+        if (!name) { return res.status(400).json({ success: false,message: 'name is required' }) }
+        if (!email) { return res.status(400).json({ success: false,message: 'email is required' }) }
+        if (!password) { return res.status(400).json({ success: false,message: 'password is required' }) }
+        if (!cpassword) { return res.status(400).json({ success: false,message: 'confirm password is required' }) }
+        if (!phone) { return res.status(400).json({ success: false,message: 'phone number is required' }) }
         // if (!adress) { return res.send({ error: 'Adress is required' }) }
 
         if (password !== cpassword) {
-            return res.status(400).json({ error: 'Passwords do not match' });
+            return res.status(400).json({success: false, message: 'Passwords do not match' });
           }
         
         //user is aleready exists
         const exisitingUser = await userModel.findOne({ email: email })
         if (exisitingUser) {
             return res.status(200).send({
-                success: true,
+                success: false,
                 message: 'Already Register please login'
             })
         }
@@ -86,6 +86,7 @@ export const loginController = async (req, res) => {
         });
 
         res.status(200).send({
+            data:{
             success: true,
             message: 'login Successfully',
             user: {
@@ -95,6 +96,7 @@ export const loginController = async (req, res) => {
                 adress: user.adress,
             },
             token,
+        }
         })
 
     } catch (error) {
@@ -106,7 +108,6 @@ export const loginController = async (req, res) => {
         })
     }
 }
-
 
 
 //test controller

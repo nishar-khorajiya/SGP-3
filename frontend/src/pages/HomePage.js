@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useAuth } from '../Context/auth';
 // import YouTube from 'react-youtube'; // Import react-youtube
 // import { useAuth } from './auth/AuthContext';
 
@@ -42,9 +43,14 @@ const Home = () => {
     setSelectedVideo(videoId);
   };
 
+
+
+const Home = () => {
+  const [auth,setAuth]=useAuth();
   return (
     <Layout title="Ashutosh Enterprise">
       {/* Automatic Carousel */}
+      <pre>{JSON.stringify(auth,null,4)}</pre>
       <Carousel>
         <Carousel.Item>
           <img className="d-block w-100" src={require('../pages/photospages/ambuja_cement.webp')} alt="First slide" style={{'height':'580px','width':'1200px'}}/>
@@ -178,5 +184,6 @@ const Home = () => {
     </Layout>
   );
 };
+}
 
 export default Home;
