@@ -58,7 +58,7 @@ const Login = () => {
         show.updateError(1,'success',"Login successfully");
         setTimeout(() => {
           show.updateError(0," "," ")
-        }, 2000);
+        }, 3000);
         // localStorage.setItem('token', json.token)
         // localStorage.setItem('name', json.user.name)
         localStorage.setItem('auth',JSON.stringify(json.data))
@@ -71,7 +71,8 @@ const Login = () => {
         // props.showAlert("Login successfully",'success')
       }
       else {
-        show.updateError(1,'danger',json.message);
+        show.updateError(1,'danger',JSON.stringify(json.data.message));
+        console.log(JSON.stringify(json.data.message));
         setTimeout(() => {
           show.updateError(0," "," ")
         }, 2000);
