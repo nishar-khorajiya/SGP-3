@@ -1,23 +1,30 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
-import { useAuth } from '../../pages/auth/AuthContext'; // Import useAuth from AuthContext
+import { useAuth } from '../../Context/auth';
+
 
 const Header = () => {
-  // const { user, logout } = useAuth(); // Use useAuth to access authentication context
+  const [auth, setAuth] = useAuth(); // Use useAuth to access authentication context
   const history = useNavigate(); // Use useNavigate for programmatic navigation
 
   const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user:null,
+      token:''
+    })
 
-    localStorage.removeItem('token')
-    localStorage.removeItem('name')
+    localStorage.removeItem('auth')
+    
     history('login')
   }
 
-  const getName = () => {
-    var fullName = localStorage.getItem('name');
-    if(fullName){
-    var firstNameMatch = fullName.match(/^\w+/);
+  const getName = (auth) => {
+    // var fullName = localStorage.getItem('name');
+    var fullName = auth.user.name;
+    if (fullName) {
+      var firstNameMatch = fullName.match(/^\w+/);
     }
     if (firstNameMatch) {
       return firstNameMatch[0];
@@ -25,8 +32,8 @@ const Header = () => {
   }
 
   // Determine the CSS classes based on user login status
-  const navbarClasses = localStorage.getItem('token') ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
-  const brandClasses = localStorage.getItem('token') ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
+  const navbarClasses = auth.token ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
+  const brandClasses = auth.token ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
 
   return (
     <>
@@ -95,7 +102,7 @@ const Header = () => {
                   </li>
                 </ul>
               </li>
-              {!localStorage.getItem('token') ?
+              {!auth.user ?
                 <form className="d-flex">
                   <li className="nav-item">
                     <NavLink to="/register" className="nav-link">Register</NavLink>
@@ -104,7 +111,7 @@ const Header = () => {
                     <NavLink to="/login" className="nav-link">Login</NavLink>
                   </li></form> :
                 <div style={{ color: 'blue' }}>
-                  <label className='mx-2 my-2'>{getName()}</label>
+                  <label className='mx-2 my-2'>{getName(auth)}</label>
                   <button className='btn btn-primary' onClick={handleLogout}>Logout</button></div>}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">

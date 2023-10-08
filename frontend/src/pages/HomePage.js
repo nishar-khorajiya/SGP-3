@@ -6,11 +6,14 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useAuth } from '../Context/auth';
 
 const Home = () => {
+  const [auth,setAuth]=useAuth();
   return (
     <Layout title="E-Commerce Website">
       {/* Automatic Carousel */}
+      <pre>{JSON.stringify(auth,null,4)}</pre>
       <Carousel>
         <Carousel.Item>
           <img
