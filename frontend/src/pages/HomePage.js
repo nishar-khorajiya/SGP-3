@@ -34,7 +34,12 @@ const videoData = [
   // Add more video data objects as needed
 ];
 
+// const Home = () => {
+ 
 const Home = () => {
+  // const [auth,setAuth]=useAuth();
+  const [auth]=useAuth();
+
   const [setSelectedVideo] = useState(null);
 
   // const [auth,setAuth]=useAuth();
@@ -43,14 +48,11 @@ const Home = () => {
     setSelectedVideo(videoId);
   };
 
-
-
-const Home = () => {
-  const [auth,setAuth]=useAuth();
+  
   return (
     <Layout title="Ashutosh Enterprise">
       {/* Automatic Carousel */}
-      <pre>{JSON.stringify(auth,null,4)}</pre>
+      {/* <pre>{JSON.stringify(auth,null,4)}</pre> */}
       <Carousel>
         <Carousel.Item>
           <img className="d-block w-100" src={require('../pages/photospages/ambuja_cement.webp')} alt="First slide" style={{'height':'580px','width':'1200px'}}/>
@@ -184,6 +186,5 @@ const Home = () => {
     </Layout>
   );
 };
-}
 
 export default Home;

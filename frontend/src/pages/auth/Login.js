@@ -27,11 +27,11 @@ const Login = () => {
   // const [showLoginButton, setShowLoginButton] = useState(true);
   // const [showLogoutButton, setShowLogoutButton] = useState(false);
   // const { login, logout} = useAuth(); // Use the useAuth hook
-  // const [showLoginButton] = useState(true);
-  // const [showLogoutButton] = useState(false);
+  const [showLoginButton] = useState(true);
+  const [showLogoutButton] = useState(false);
 
-  const [showLoginButton, setShowLoginButton] = useState(true);
-  const [showLogoutButton, setShowLogoutButton] = useState(false);
+  // const [showLoginButton, setShowLoginButton] = useState(true);
+  // const [showLogoutButton, setShowLogoutButton] = useState(false);
   // const { login, logout} = useAuth(); // Use the useAuth hook
  
   const history = useNavigate()
@@ -71,7 +71,7 @@ const Login = () => {
         // props.showAlert("Login successfully",'success')
       }
       else {
-        show.updateError(1,'danger',JSON.stringify(json.data.message));
+        show.updateError(1,'danger',json.message);
         setTimeout(() => {
           show.updateError(0," "," ")
         }, 2000);

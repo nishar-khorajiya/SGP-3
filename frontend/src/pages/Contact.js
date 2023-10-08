@@ -9,9 +9,15 @@ import { Envelope } from "react-bootstrap-icons";
 import { Facebook } from "react-bootstrap-icons";
 import { Instagram } from "react-bootstrap-icons";
 import { Whatsapp } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import ProviderContext from '../Context/ProviderContext';
 
 const Contact = () => {
   const msg="Hello,Ashish Gandha";
+
+  const show = useContext(ProviderContext)
+  const history=useNavigate();
 
   const whatsappLink1 = `https://api.whatsapp.com/send?phone=${9924074741}&text=${encodeURIComponent(msg)}`;
   const [formData,setFormData] = useState({
@@ -19,7 +25,7 @@ const Contact = () => {
     email: "",
     phone: "",
     address: "",
-    message: ""
+    message: "",
   });
 
   // const handleChange = (e) => {
@@ -43,9 +49,12 @@ const Contact = () => {
     });
 
     if (response.status === 200) {
-      // Email sent successfully
-      // You can show a success message or redirect the user to a thank you page
-      console.log("emailsend")
+      show.updateError(1,'success',"Thankyou For Contacting Us!");
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 3000);
+      
+      history("/");
     } else {
       console.log("invalid credential")
     }
