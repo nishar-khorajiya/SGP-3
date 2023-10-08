@@ -207,7 +207,7 @@ font-family: 'Roboto', sans-serif; */
   font-size:1.1em;
 }
 
-.footer-container .wave{
+/* .footer-container .wave{
   position:absolute;
   top:-70px;
   left:0;
@@ -215,9 +215,9 @@ font-family: 'Roboto', sans-serif; */
   height:100px;
   background:url(./pages/photospages/wave.png);
   background-size:1000px 100px;
-}
+} */
 
-.footer-container .wave#wave1{
+/* .footer-container .wave#wave1{
   z-index:1000;
   opacity:1;
   bottom:0;
@@ -243,9 +243,9 @@ font-family: 'Roboto', sans-serif; */
   opacity:0.5;
   bottom:20px;
   animation:animateWave_02 3s linear infinite;
-}
+} */
 
-@keyframes animateWave{
+/* @keyframes animateWave{
   0%{
       background-position-x:1000px;
   }
@@ -260,6 +260,22 @@ font-family: 'Roboto', sans-serif; */
   }
   100%{
       background-position-x:1000px;
+  }
+} */
+
+.header-short-username {
+  /* Rest of your CSS code for length < 6 */
+  .navbar-brand {
+    /* Existing styles for length < 6 */
+    margin-right: 190px; /* Adjust the right margin for short username */
+  }
+}
+
+.header-long-username {
+  /* Existing styles for length >= 6 */
+  .navbar-brand {
+    /* Existing styles for length >= 6 */
+    margin-right: 190px; /* Adjust the right margin for long username */
   }
 }
 

@@ -14,7 +14,7 @@ import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
 import { useState } from 'react';
 // import { load } from 'gapi-script';
-import { useAuth } from '../auth/AuthContext';
+// import { useAuth } from '../auth/AuthContext';
 library.add(faEye,faEyeSlash);
 
 
@@ -22,9 +22,11 @@ const Login = () => {
   const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
 
   const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
-  const [showLoginButton, setShowLoginButton] = useState(true);
-  const [showLogoutButton, setShowLogoutButton] = useState(false);
-  const { login, logout} = useAuth(); // Use the useAuth hook
+  // const [showLoginButton, setShowLoginButton] = useState(true);
+  // const [showLogoutButton, setShowLogoutButton] = useState(false);
+  // const { login, logout} = useAuth(); // Use the useAuth hook
+  const [showLoginButton] = useState(true);
+  const [showLogoutButton] = useState(false);
  
   const history = useNavigate()
   const [credentials, setCredentials] = useState({ email: "", password: "" })

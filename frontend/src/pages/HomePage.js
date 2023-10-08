@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Layout from '../components/Layout/Layout';
 import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
@@ -6,32 +6,60 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+// import YouTube from 'react-youtube'; // Import react-youtube
+// import { useAuth } from './auth/AuthContext';
+
+const videoData = [
+  {
+    title: 'Asian Paints',
+    thumbnail: require('../pages/photospages/asianvideo.jpg'),
+    youtubeLink: 'https://www.youtube.com/watch?app=desktop&v=MQMfegIWCPY',
+  },
+  {
+    title: 'Berger Paints',
+    thumbnail: require('../pages/photospages/bergervideo.jpg'),
+    youtubeLink: 'https://www.youtube.com/watch?v=tsXpWwVK6ak',
+  },
+  {
+    title: 'Ultratech Cement',
+    thumbnail: require('../pages/photospages/ultratechvideo.jpg'),
+    youtubeLink: 'https://www.youtube.com/watch?v=WAlxp_5Abl4',
+  },
+  {
+    title: 'Utkarsh TMT Bars',
+    thumbnail: require('../pages/photospages/utkarshvideo.jpg'),
+    youtubeLink: 'https://www.youtube.com/watch?v=3PjbkvvxCGM',
+  },
+  // Add more video data objects as needed
+];
 
 const Home = () => {
+  const [setSelectedVideo] = useState(null);
+
+  // const [auth,setAuth]=useAuth();
+
+  const onVideoClick = (videoId) => {
+    setSelectedVideo(videoId);
+  };
+
   return (
     <Layout title="Ashutosh Enterprise">
       {/* Automatic Carousel */}
       <Carousel>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="carousel-image-1.jpg"
-            alt="First slide"
-          />
+          <img className="d-block w-100" src={require('../pages/photospages/ambuja_cement.webp')} alt="First slide" style={{'height':'580px','width':'1200px'}}/>
         </Carousel.Item>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="carousel-image-2.jpg"
-            alt="Second slide"
-          />
+        <img className="d-block w-100" src={require('../pages/photospages/ultratech.jpg')} alt="First slide" style={{'height':'580px','width':'100%'}}/>
         </Carousel.Item>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="carousel-image-3.jpg"
-            alt="Third slide"
-          />
+        <img className="d-block w-100" src={require('../pages/photospages/berger.jpg')} alt="First slide" style={{'height':'600px','width':'1100px'}}/>
+        </Carousel.Item>
+        <Carousel.Item>
+        <img className="d-block w-100" src={require('../pages/photospages/asian.jpg')} alt="First slide" style={{'height':'580px','width':'1200px'}}/>
+        </Carousel.Item>
+        <Carousel.Item>
+        <img className="d-block w-100" src={require('../pages/photospages/tmtbars.jpg')} alt="First slide" style={{'height':'580px','width':'1200px'}}/>
         </Carousel.Item>
       </Carousel>
 
@@ -71,23 +99,31 @@ const Home = () => {
 
       {/* Small Banners */}
       <Container className="mt-5">
-        <Row>
-          <Col md={6}>
-            <img src="banner-1.jpg" alt="Banner 1" className="img-fluid" />
+      <h2 className="mb-4">Featured Brands</h2>
+        <Row className="d-flex align-items-center">
+          <Col md={3}>
+            <img src={require('../pages/photospages/ambujabanner.webp')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>
           </Col>
-          <Col md={6}>
-            <img src="banner-2.jpg" alt="Banner 2" className="img-fluid" />
+          <Col md={2}>
+          <img src={require('../pages/photospages/ultratechbanner.jpg')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>
           </Col>
+          <Col md={2}>
+          <img src={require('../pages/photospages/utkarsh-ms-tmt-bar.jpg')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>
+          </Col>
+          <Col md={2}>
+          <img src={require('../pages/photospages/bergerbanner.jpg')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>          </Col>
+          <Col md={3}>
+          <img src={require('../pages/photospages/asianbanner2.png')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>          </Col>
         </Row>
       </Container>
 
       {/* Video Cards */}
-      <Container className="mt-5">
+      {/* <Container className="mt-5">
         <h2 className="mb-4">Featured Videos</h2>
         <Row>
           <Col md={4}>
             <Card>
-              <Card.Img variant="top" src="video-thumbnail-1.jpg" />
+              <Card.Img variant="top" src={require('../pages/photospages/asianvideo.jpg')} />
               <Card.Body>
                 <Card.Title>Video Title 1</Card.Title>
                 <Button variant="primary">Watch Now</Button>
@@ -113,7 +149,32 @@ const Home = () => {
             </Card>
           </Col>
         </Row>
+      </Container>  */}
+
+      {/* Video Cards */}
+      <Container className="mt-5">
+        <h2 className="mb-4">Featured Videos</h2>
+        <Row>
+          {videoData.map((video, index) => (
+            <Col md={3} key={index}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={video.thumbnail} />
+                <Card.Body>
+                  <Card.Title>{video.title}</Card.Title>
+                  <Button
+                    variant="primary"
+                    onClick={() => onVideoClick(video.youtubeLink)}
+                  >
+                    Watch Now
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </Container>
+
+      {/* <pre>{JSON.stringify(auth,null,4)}</pre> */}
     </Layout>
   );
 };

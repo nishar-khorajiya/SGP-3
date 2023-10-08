@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
-import { useAuth } from '../../pages/auth/AuthContext'; // Import useAuth from AuthContext
+// import { useAuth } from '../../pages/auth/AuthContext'; // Import useAuth from AuthContext
 
 const Header = () => {
   // const { user, logout } = useAuth(); // Use useAuth to access authentication context
@@ -11,22 +11,55 @@ const Header = () => {
 
     localStorage.removeItem('token')
     localStorage.removeItem('name')
-    history('login')
+    history('/')
   }
 
+  // const getName = () => {
+  //   var fullName = localStorage.getItem('name');
+  //   if(fullName){
+  //   var firstNameMatch = fullName.match(/^\w+/);
+  //   }
+  //   if (firstNameMatch) {
+  //     return firstNameMatch[0];
+  //   }
+  // }
   const getName = () => {
     var fullName = localStorage.getItem('name');
-    if(fullName){
-    var firstNameMatch = fullName.match(/^\w+/);
+    if (fullName) {
+      var firstNameMatch = fullName.match(/^\w+/);
+      if (firstNameMatch) {
+        return firstNameMatch[0];
+      }
     }
-    if (firstNameMatch) {
-      return firstNameMatch[0];
-    }
-  }
+    return ''; // Return an empty string if no name is found
+  };
 
   // Determine the CSS classes based on user login status
-  const navbarClasses = localStorage.getItem('token') ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
-  const brandClasses = localStorage.getItem('token') ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
+  // const navbarClasses = localStorage.getItem('token') ? 'navbar navbar-expand-lg bg-body-tertiary logged-in' : 'navbar navbar-expand-lg bg-body-tertiary logged-out';
+  // const brandClasses = localStorage.getItem('token') ? 'navbar-brand logged-in' : 'navbar-brand logged-out';
+
+  // const isUserLoggedIn = !!localStorage.getItem('token');
+  // const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${
+  //   isUserLoggedIn ? 'logged-in' : 'logged-out'
+  // }`;
+
+  // const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
+  //  // Determine padding based on username length
+  //  const username = getName();
+  //  const usernameLength = username.length;
+  //  const brandPadding = usernameLength > 5 ? '200px' : '100px';
+
+  const isUserLoggedIn = !!localStorage.getItem('token');
+  const username = getName();
+  const usernameLength = username.length;
+
+  // Determine the CSS classes based on user login status and username length
+  const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${
+    isUserLoggedIn ? 'logged-in' : 'logged-out'
+  } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
+
+  const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
+
 
   return (
     <>
@@ -44,19 +77,7 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link to="/" className={brandClasses}>
-              <img
-                src={web}
-                alt=""
-                style={{
-                  height: "50px",
-                  width: "50px",
-                  borderRadius: "60%",
-                }}
-              />
-              Ashutosh Enterprise
-            </Link>
-
+            <Link to="/" className={brandClasses}><img src={web} style={{height: "50px", width: "50px", borderRadius: "70%",marginRight:"3px"}}/>Ashutosh Enterprise</Link>
             <ul className="nav nav-pills ml-auto" style={{ paddingLeft: "350px" }}>
               <li className="nav-item">
                 <NavLink to="/" className="nav-link" aria-current="page">
