@@ -48,9 +48,10 @@ const Home = () => {
     setSelectedVideo(videoId);
   };
 
-  
+  const cardBorderRadius = '10px';
+
   return (
-    <Layout title="Ashutosh Enterprise">
+    <Layout title="Home-Ashutosh Enterprise">
       {/* Automatic Carousel */}
       {/* <pre>{JSON.stringify(auth,null,4)}</pre> */}
       <Carousel>
@@ -76,7 +77,7 @@ const Home = () => {
         <h2 className="mb-4">Shop by Category</h2>
         <Row>
           <Col md={4}>
-            <Card>
+            <Card style={{ borderRadius: cardBorderRadius }}>
               <Card.Img variant="top" src={require('../pages/photospages/category_cements.jpg')} />
               <Card.Body>
                 <Card.Title>Cements</Card.Title>
@@ -85,7 +86,7 @@ const Home = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card>
+            <Card style={{ borderRadius: cardBorderRadius }}>
               <Card.Img variant="top" src={require('../pages/photospages/category_paints.jpg')} />
               <Card.Body>
                 <Card.Title>House Paints</Card.Title>
@@ -94,7 +95,7 @@ const Home = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card>
+            <Card style={{ borderRadius: cardBorderRadius }}>
               <Card.Img variant="top" src={require('../pages/photospages/category_tmt.jpg')} style={{'height':'290px'}} />
               <Card.Body>
                 <Card.Title>TMT Bars</Card.Title>
@@ -109,7 +110,7 @@ const Home = () => {
       <Container className="mt-5">
       <h2 className="mb-4">Featured Brands</h2>
         <Row className="d-flex align-items-center">
-          <Col md={3}>
+          <Col md={3} >
             <img src={require('../pages/photospages/ambujabanner.webp')} alt="Banner 1" className="img-fluid" style={{'height':'200px', 'width':'200px'}}/>
           </Col>
           <Col md={2}>
@@ -165,7 +166,7 @@ const Home = () => {
         <Row>
           {videoData.map((video, index) => (
             <Col md={3} key={index}>
-              <Card style={{ width: '18rem' }}>
+              <Card style={{ width: '18rem',borderRadius: cardBorderRadius }}>
                 <Card.Img variant="top" src={video.thumbnail} />
                 <Card.Body>
                   <Card.Title>{video.title}</Card.Title>

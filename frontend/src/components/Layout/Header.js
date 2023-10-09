@@ -87,11 +87,11 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/colours" className="dropdown-item">
-                      Colours
+                    <NavLink to="/paint" className="dropdown-item">
+                      Paints
                     </NavLink>
-                    <NavLink to="/colours" className="dropdown-item">
-                      TMT Bars
+                    <NavLink to="/industry" className="dropdown-item">
+                      Industry items
                     </NavLink>
                   </li>
                   <li>

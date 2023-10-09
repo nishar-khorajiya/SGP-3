@@ -75,7 +75,7 @@ const Login = () => {
         // console.log(JSON.stringify(json.data.message));
         setTimeout(() => {
           show.updateError(0," "," ")
-        }, 2000);
+        }, 3000);
         console.log("failed")
         history('../Login')
         // props.showAlert("Login failed",'danger')
@@ -110,7 +110,7 @@ const Login = () => {
   return (
     <>
       <logindes>
-        <Layout >
+        <Layout title={"Login-Ashutosh Enterprise"}>
           <section className='lcontainer forms'>
             <div className='form login'>
               <div className='form-content'>
