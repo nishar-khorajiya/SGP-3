@@ -51,7 +51,7 @@ const Login = () => {
         body: JSON.stringify({ email: credentials.email, password: credentials.password })
       });
       const json = await response.json();
-      // console.log(json.user.name)
+      console.log(json.data)
 
       if (json.data.success) {
        
@@ -79,10 +79,11 @@ const Login = () => {
         console.log("failed")
         history('../Login')
         // props.showAlert("Login failed",'danger')
+        
       }
     }
     catch (error) {
-      console.log(error)
+      console.log(error+"hi")
     }
   }
   const onChange = (e) => {
@@ -127,7 +128,7 @@ const Login = () => {
                     <BiHide className="eye-icon" /> 
                   </div> */}
                    <div className='field input-field'>
-                    <input type={PasswordInputType} placeholder='Password' name='password' value={credentials.password} onChange={onChange} className='form-control rounded-3 password' />
+                    <input type={PasswordInputType} placeholder='Password' name='password' value={credentials.password} autoComplete="on" onChange={onChange} className='form-control rounded-3 password' />
                     <span className="eye-icon" onClick={toggleVisibilityPassword}>{ToggleIconPassword}</span>
                   </div>
                   <div className='form-link'>
