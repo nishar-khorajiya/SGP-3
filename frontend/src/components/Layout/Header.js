@@ -90,6 +90,9 @@ const Header = () => {
                     <NavLink to="/colours" className="dropdown-item">
                       Colours
                     </NavLink>
+                    <NavLink to="/colours" className="dropdown-item">
+                      TMT Bars
+                    </NavLink>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />

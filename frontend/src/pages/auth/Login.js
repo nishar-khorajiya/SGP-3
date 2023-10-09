@@ -72,7 +72,7 @@ const Login = () => {
       }
       else {
         show.updateError(1,'danger',JSON.stringify(json.data.message));
-        console.log(JSON.stringify(json.data.message));
+        // console.log(JSON.stringify(json.data.message));
         setTimeout(() => {
           show.updateError(0," "," ")
         }, 2000);

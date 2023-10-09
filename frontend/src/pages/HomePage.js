@@ -77,27 +77,27 @@ const Home = () => {
         <Row>
           <Col md={4}>
             <Card>
-              <Card.Img variant="top" src="category-image-1.jpg" />
+              <Card.Img variant="top" src={require('../pages/photospages/category_cements.jpg')} />
               <Card.Body>
-                <Card.Title>Category 1</Card.Title>
+                <Card.Title>Cements</Card.Title>
                 <Button variant="primary">Shop Now</Button>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
             <Card>
-              <Card.Img variant="top" src="category-image-2.jpg" />
+              <Card.Img variant="top" src={require('../pages/photospages/category_paints.jpg')} />
               <Card.Body>
-                <Card.Title>Category 2</Card.Title>
+                <Card.Title>House Paints</Card.Title>
                 <Button variant="primary">Shop Now</Button>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
             <Card>
-              <Card.Img variant="top" src="category-image-3.jpg" />
+              <Card.Img variant="top" src={require('../pages/photospages/category_tmt.jpg')} style={{'height':'290px'}} />
               <Card.Body>
-                <Card.Title>Category 3</Card.Title>
+                <Card.Title>TMT Bars</Card.Title>
                 <Button variant="primary">Shop Now</Button>
               </Card.Body>
             </Card>
