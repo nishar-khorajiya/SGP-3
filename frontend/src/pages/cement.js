@@ -48,7 +48,7 @@ const Cement = () => {
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
           {ambujaCementProducts.map((product, idx) => (
             <Col key={idx}>
-              <Card className="h-100 shadow">
+              <Card className="h-100 shadow" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
                 <Card.Img variant="top" src={product.image} style={{height:'250px'}}/>
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
@@ -76,7 +76,7 @@ const Cement = () => {
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
           {ultratechCementProducts.map((product, idx) => (
             <Col key={idx}>
-              <Card className="h-100 shadow">
+              <Card className="h-100 shadow" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
                 <Card.Img variant="top" src={product.image} style={{height:'250px',width:'300px'}}/>
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>

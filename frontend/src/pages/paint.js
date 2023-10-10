@@ -10,29 +10,40 @@ import Button from 'react-bootstrap/Button';
 // Import the images you want for each card
 import AsianImage from '../pages/photospages/asian.jpg';
 import BergerImage from '../pages/photospages/berger.jpg';
-import ambujapro from '../pages/photospages/product_ambuja.jpg'
-import ultratechpro from '../pages/photospages/product_ultratech.jpg'
+import asian1 from '../pages/photospages/asian1.png';
+import asian2 from '../pages/photospages/asian2.png';
+import asian3 from '../pages/photospages/asian3.png';
+import asian4 from '../pages/photospages/asian4.png';
+import asian5 from '../pages/photospages/asian5.png';
+import asian6 from '../pages/photospages/asian6.png';
+import asian7 from '../pages/photospages/asian7.png';
+import asian8 from '../pages/photospages/asian8.png';
+
  
 
 import { Cart, Bag } from 'react-bootstrap-icons'; // Import Cart and Shopping Bag icons from Bootstrap Icons
 const Paint = () => {
 
-    const ambujaCementProducts = [
-        { title: 'Ambuja Cement 5kg', price: 'Rs.500/-', image: ambujapro },
-        { title: 'Ambuja Cement 10kg', price: 'Rs.1000/-', image: ambujapro },
-        { title: 'Ambuja Cement 15kg', price: 'Rs.2000/-', image: ambujapro },
-        { title: 'Ambuja Cement 20kg', price: 'Rs.2500/-', image: ambujapro },
+    const asianpaintsProducts = [
+        { title: 'Ace Advanced', price: 'Rs.161/L', image: asian3 },
+        { title: 'Ace Emulsion', price: 'Rs.161/L', image: asian4 },
+        { title: 'Apcolite Advanced Emulsion', price: 'Rs.315/L', image: asian1 },
+        { title: 'Apcolite Premium Emulsion', price: 'Rs.269/L', image: asian2 },
+        { title: 'Advanced Waterproof emulsion', price: 'Rs.266/L', image: asian5 },
+        { title: 'Apex Ultima', price: 'Rs.356/L', image: asian6 },
+        { title: 'Weatherproof Emulsion', price: 'Rs.271/L', image: asian7 },
+        { title: 'Royale Aspira', price: 'Rs.595/L', image: asian8 },
       ];
     
-      const ultratechCementProducts = [
-        { title: 'Ultratech Cement 5kg', price: 'Rs.1000/-', image: ultratechpro },
-        { title: 'Ultratech Cement 10kg', price: 'Rs.2000/-', image: ultratechpro },
-        { title: 'Ultratech Cement 15kg', price: 'Rs.2500/-', image: ultratechpro },
-        { title: 'Ultratech Cement 20kg', price: 'Rs.3000/-', image: ultratechpro },
+      const bergerpaintsProducts = [
+        { title: '', price: 'Rs.', image: asian4 },
+        { title: '', price: 'Rs.', image: asian4 },
+        { title: '', price: 'Rs.', image: asian4 },
+        { title: '', price: 'Rs.', image: asian4 },
       ];
 
   return (
-    <Layout title="Cement-Ashutosh Enterprise">
+    <Layout title="Paints-Ashutosh Enterprise">
      <Carousel>
         <Carousel.Item>
           <img className="d-block w-100" src={AsianImage} alt="Ambuja Cement" style={{ height: '580px', width: '1200px' }} />
@@ -46,10 +57,10 @@ const Paint = () => {
       <Container className="mt-4">
         <h2>Asian Paints</h2>
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
-          {ambujaCementProducts.map((product, idx) => (
+          {asianpaintsProducts.map((product, idx) => (
             <Col key={idx}>
-              <Card className="h-100 shadow">
-                <Card.Img variant="top" src={product.image} style={{height:'250px'}}/>
+              <Card className="h-100 shadow" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',padding:'8%' }}>
+                <Card.Img variant="top" src={product.image} style={{height:'250px',width:'230px'}}/>
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
                     <h5 className="card-title">{product.title}</h5>
@@ -69,14 +80,15 @@ const Paint = () => {
           ))}
         </Row>
       </Container>
+      
 
       {/* Ultratech Cement Category Cards */}
       <Container className="mt-4">
         <h2>Berger Paints</h2>
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
-          {ultratechCementProducts.map((product, idx) => (
+          {bergerpaintsProducts.map((product, idx) => (
             <Col key={idx}>
-              <Card className="h-100 shadow">
+              <Card className="h-100 shadow" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
                 <Card.Img variant="top" src={product.image} style={{height:'250px',width:'300px'}}/>
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
