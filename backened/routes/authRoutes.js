@@ -1,11 +1,4 @@
 import express from 'express';
-// import {registerController,loginController,testController,} from '../controllers/authController.js';
-// import { isAdmin, requireSignIn } from '../middlewares/authMiddleware.js';
-// import passport from 'passport';//added
-
-//router object
-// import { registerController, loginController, testController } from '../controllers/authController.js';
-
 import { registerController, loginController, testController} from '../controllers/authController.js';
 import { contactusController} from '../controllers/contactusController.js';
 import { requireSignIn, isAdmin } from '../middlewares/authMiddleware.js';     
@@ -19,7 +12,13 @@ router.post('/login', loginController)
 
 //CONTACT US || POST
 router.post('/contactus',contactusController)
+
 //test routes
 router.get('/test', requireSignIn, isAdmin, testController);
+
+//protected routes auth
+router.get("/user-auth",requireSignIn,(req,res)=>{
+    res.status(200).send({ok:true})
+})
 
 export default router;

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
+// import { useAuth } from '../../Context/auth';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -119,7 +120,7 @@ const Header = () => {
                 </form>
               ) : (
                 <div style={{ color: 'blue' }}>
-                  <label className="mx-2 my-2">Welcome,{getName(auth)}</label>
+                  <label className="mx-2 my-2">{getName(auth)}</label>
                   <button className="btn btn-primary" onClick={handleLogout}>
                     Logout
                   </button>

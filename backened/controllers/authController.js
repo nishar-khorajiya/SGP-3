@@ -17,16 +17,16 @@ export const registerController = async (req, res) => {
         // if (!adress) { return res.send({ error: 'Adress is required' }) }
 
         if (password !== cpassword) {
-            return res.status(400).json({success: false, message: 'Passwords do not match' });
+            return res.status(400).json({data:{success: false, message: 'Passwords do not match' }});
           }
         
         //user is aleready exists
         const exisitingUser = await userModel.findOne({ email: email })
         if (exisitingUser) {
-            return res.status(200).send({
+            return res.status(200).send({data:{
                 success: false,
                 message: 'Already Register please login'
-            })
+            }})
         }
 
         //register user
@@ -35,19 +35,19 @@ export const registerController = async (req, res) => {
         //save
         const user = await new userModel({ name, email, phone, password: hashedPassword }).save();
 
-        res.status(201).send({
+        res.status(201).send({data:{
             success: true,
             message: 'User Register successfully',
             user
-        })
+        }})
 
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+        res.status(500).send({data:{
             success: false,
             message: 'error in registration',
             error
-        })
+        }})
     }
 }
 
@@ -101,11 +101,11 @@ export const loginController = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({
+        res.status(500).json({data:{
             success: false,
             message: 'error in login',
             error
-        })
+        }})
     }
 }
 

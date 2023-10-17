@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import Layout from '../../components/Layout/Layout';
-import { logindes } from '../pagescss/logincss.css';
+import '../pagescss/logincss.css';
 import { Link } from 'react-router-dom';
 import { FaFacebook} from 'react-icons/fa'; 
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
-// import { useState } from 'react';
-// import { load } from 'gapi-script';
-// import { useAuth } from '../auth/AuthContext';
-
 import { useState,useContext } from 'react';
 import ProviderContext from '../../Context/ProviderContext';
 import { useAuth } from '../../Context/auth';
+
+// import axios from 'axios';
 library.add(faEye,faEyeSlash);
 
 
@@ -22,18 +20,9 @@ const Login = () => {
   const show = useContext(ProviderContext)
   const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
 
-  const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
-
-  // const [showLoginButton, setShowLoginButton] = useState(true);
-  // const [showLogoutButton, setShowLogoutButton] = useState(false);
-  // const { login, logout} = useAuth(); // Use the useAuth hook
+  // const clientId = "281182717717-6cd5td37scocnhje9h1534uar7j3laik.apps.googleusercontent.com";
   const [showLoginButton] = useState(true);
   const [showLogoutButton] = useState(false);
-
-  // const [showLoginButton, setShowLoginButton] = useState(true);
-  // const [showLogoutButton, setShowLogoutButton] = useState(false);
-  // const { login, logout} = useAuth(); // Use the useAuth hook
- 
   const history = useNavigate()
   const [credentials, setCredentials] = useState({ email: "", password: "" })
   const [auth,setAuth]=useAuth();
@@ -68,6 +57,7 @@ const Login = () => {
           user:json.data.user,
           token:json.data.token
         })
+        // console.log(json.data.token)
         // props.showAlert("Login successfully",'success')
       }
       else {
@@ -85,31 +75,14 @@ const Login = () => {
     catch (error) {
       console.log(error+"hi")
     }
+
   }
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://apis.google.com/js/api.js';
-    script.onload = () => {
-      window.gapi.load('client:auth2', () => {
-        window.gapi.client.init({
-          clientId: clientId,
-          scope: "profile"
-        }).then(() => {
-          // The client library has been initialized successfully
-        }).catch((error) => {
-          console.error("Error initializing gapi client:", error);
-        });
-      });
-    };
-  })
-
   return (
     <>
-      <logindes>
+      
         <Layout title={"Login-Ashutosh Enterprise"}>
           <section className='lcontainer forms'>
             <div className='form login'>
@@ -147,23 +120,12 @@ const Login = () => {
 
               <div className='media-options'>
 
-                {
-                  showLoginButton ? <GoogleLogin
+              {/* <GoogleLogin
                   buttonText="Login with Google"
-                  cookiePolicy={'single_host_origin'}
-                  prompt="select_account" // Add this line
+                  // cookiePolicy={'single_host_origin'}
+                  // prompt="select_account" // Add this line
                   className='field goggle'
-                /> : null
-                }
-                {
-                  showLogoutButton ?
-                    <GoogleLogout
-                      clientId={clientId}
-                      buttonText="Logout"
-                      className='field google'
-                    />
-                    : null
-                }
+                />  */}
                 <Link to="/" className='field facebook'>
                   <FaFacebook className="facebook-icon" style={{ fontSize: '22px' }}  /> {/* Use the FaFacebook icon */}
                   <span>Login With Facebook</span>
@@ -172,9 +134,8 @@ const Login = () => {
             </div>
           </section>
         </Layout>
-      </logindes>
-    </>
-  )
+      </>
+      )
 }
 
 export default Login;
