@@ -15,6 +15,7 @@ dotenv.config();
 app.use(cors({
     origin: 'http://localhost:3000',
     exposedHeaders: 'Authorization',
+    exposedHeaders: 'user',
   }));
 //database
 connectDB();

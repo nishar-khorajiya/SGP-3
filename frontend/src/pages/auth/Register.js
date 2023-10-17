@@ -19,54 +19,58 @@ library.add(faEye, faEyeSlash);
 // const Register = () => {
 const Register = () => {
 
+  const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
+  const [ConfirmPasswordInputType, ToggleIconConfirmPassword, toggleVisibilityConfirmPassword] = usePasswordToggle();
+
   const [auth,setAuth]=useAuth();
   const history = useNavigate();
   const show = useContext(ProviderContext)
   const [credentials, setCredentials] = useState({ name: "", email: "", phone: "", password: "",cpassword: "" })
 
   const handleSubmit = async (e) => {
-    // try {
-    //   e.preventDefault()
-    //   const response = await fetch(`http://localhost:8080/api/v1/auth/register`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       // "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRhOTM2ZWZmYzBjMzVjZTIyMzIyNzdmIn0sImlhdCI6MTY4ODgxNzU0Mn0.3AwNxNtzOERB9LMz86GlQy0gm9hftYe0zPmdMnK7zrc"
-    //     },
-    //     body: JSON.stringify({ name: credentials.name, email: credentials.email, phone: credentials.phone, password: credentials.password,cpassword: credentials.cpassword })
-    //   });
-    //   const json = await response.json();
-    //   // console.log(json)
+    try {
+      e.preventDefault()
+      const response = await fetch(`http://localhost:8080/api/v1/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRhOTM2ZWZmYzBjMzVjZTIyMzIyNzdmIn0sImlhdCI6MTY4ODgxNzU0Mn0.3AwNxNtzOERB9LMz86GlQy0gm9hftYe0zPmdMnK7zrc"
+        },
+        body: JSON.stringify({ name: credentials.name, email: credentials.email, phone: credentials.phone, password: credentials.password,cpassword: credentials.cpassword })
+      });
+      const json = await response.json();
+      // console.log(json)
 
-    //   if (json.data.success) {
-    //     show.updateError(1,'success',"Registered successfully");
-    //     setTimeout(() => {
-    //       show.updateError(0," "," ")
-    //     }, 2000);
+      if (json.success) {
+        show.updateError(1,'success',"Registered successfully");
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
 
-    //     localStorage.setItem('auth',JSON.stringify(json.data))
-    //     history('/')
-    //     setAuth({
-    //       ...auth,
-    //       user:json.data.user,
-    //       token:json.data.token
-    //     })
-    //     // console.log('User Registered');
-    //     // props.showAlert("created user successfully", 'success')
-    //   }
-    //   else {
-    //     show.updateError(1,'danger',json.message);
-    //     setTimeout(() => {
-    //       show.updateError(0," "," ")
-    //     }, 2000);
-    //     // props.showAlert("signup failed", 'danger')
-    //     history('../Register')
-    //     console.log('Signup Failed');
-    //   }
-    // }
-    // catch (error) {
-    //   console.log(error)
-    // }
+        localStorage.setItem('auth',JSON.stringify(json))
+        history('/')
+        setAuth({
+          ...auth,
+          user:json.user,
+          token:json.token
+        })
+        // console.log('User Registered');
+        // props.showAlert("created user successfully", 'success')
+      }
+      else {
+        show.updateError(1,'danger',json.message);
+        setTimeout(() => {
+          show.updateError(0," "," ")
+        }, 2000);
+        // props.showAlert("signup failed", 'danger')
+        history('../Register')
+        console.log('Signup Failed');
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+    
   // const requiredFields = ['name', 'email', 'phone', 'password', 'cpassword'];
   // const missingFields = requiredFields.filter((field) => !credentials[field]);
 
@@ -74,67 +78,67 @@ const Register = () => {
   //   console.log('Please fill in all required fields.');
   //   return;
   // }
-    e.preventDefault();
+  //   e.preventDefault();
 
-    const requestData = {
-      name: credentials.name || "",
-      email: credentials.email,
-      phone: credentials.phone,
-      password: credentials.password,
-      cpassword: credentials.cpassword,
-    };
+  //   const requestData = {
+  //     name: credentials.name || "",
+  //     email: credentials.email,
+  //     phone: credentials.phone,
+  //     password: credentials.password,
+  //     cpassword: credentials.cpassword,
+  //   };
   
-    try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/register', requestData, {
-        headers: {
-          'Content-Type': 'application/json',
-          // You can include other headers here, such as the "auth-token" header
-        },
-      });
+  //   try {
+  //     const response = await axios.post('http://localhost:8080/api/v1/auth/register', requestData, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // You can include other headers here, such as the "auth-token" header
+  //       },
+  //     });
   
-      const json = response.data;
+  //     const json =  response.data;
   
-      if (json.data.success) {
-        show.updateError(1, 'success', 'Registered successfully');
-        setTimeout(() => {
-          show.updateError(0, ' ', ' ');
-        }, 2000);
+  //     if (json.success) {
+  //       show.updateError(1, 'success', 'Registered successfully');
+  //       setTimeout(() => {
+  //         show.updateError(0, ' ', ' ');
+  //       }, 2000);
   
-        localStorage.setItem('auth', JSON.stringify(json.data));
-        history('/');
-        setAuth({
-          ...auth,
-          user: json.data.user,
-          token: json.data.token,
-        });
-      } else {
-        console.log(json.data.message)
-        show.updateError(1, 'danger', json.data.message);
-        setTimeout(() => {
-          show.updateError(0, ' ', ' ');
-        }, 2000);
+  //       localStorage.setItem('auth', JSON.stringify(json));
+  //       history('/');
+  //       setAuth({
+  //         ...auth,
+  //         user: json.user,
+  //         token: json.token,
+  //       });
+  //     } else {
+
+  //       show.updateError(1, 'danger', JSON.stringify(json.message));
+  //       setTimeout(() => {
+  //         show.updateError(0, ' ', ' ');
+  //       }, 2000);
   
-        history('../Register');
-      }
-    } catch (error) {
-      console.log(error);
-      console.log("hiiiiiii")
-    }
+  //       history('../Register');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     console.log("error in register user")
+  //   }
   
-  }
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value })
-  }
+  // }
+
   // const [PasswordInputType, ToggleIcon]= usePasswordToggle();
 
-  const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
-  const [ConfirmPasswordInputType, ToggleIconConfirmPassword, toggleVisibilityConfirmPassword] = usePasswordToggle();
+  
 
   //  const onRegisterSuccess = () => {
   //   setIsLoggedIn(true);
   //  }//added
 
-
+  }
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
   return (
     <>
       

@@ -14,6 +14,7 @@ import Paint from './pages/paint';
 import Industry from './pages/industry';
 import Dashboard from './pages/user/Dashboard';
 import PrivateRoutes from './components/Routes/Private';
+import AdminRoutes from './components/Routes/AdminRotes';
 
 function App() {
   return (
@@ -23,7 +24,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<PrivateRoutes/>} >
-            <Route path='' element={<Dashboard/>}/>
+            <Route path='user' element={<Dashboard/>}/>
+          </Route>
+          <Route path="/dashboard" element={<AdminRoutes/>} >
+            <Route path='admin' element={<Dashboard/>}/>
           </Route>
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />

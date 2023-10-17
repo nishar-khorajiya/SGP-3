@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     
     <Layout title={"Dashboard - Ashutosh Enterprise"}>
-    <div>Dashboard</div>
+    <h1>User Dashboard</h1>
     </Layout>
     
   )
