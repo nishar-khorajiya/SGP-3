@@ -23,7 +23,7 @@ export const registerController = async (req, res) => {
         //user is aleready exists
         const exisitingUser = await userModel.findOne({ email: email })
         if (exisitingUser) {
-            return res.status(200).send({
+            return res.status(200).json({
                 success: false,
                 message: 'Already Register please login'
             })
@@ -35,7 +35,7 @@ export const registerController = async (req, res) => {
         //save
         const user = await new userModel({ name, email, phone, password: hashedPassword }).save();
 
-        res.status(201).send({
+        return res.status(201).json({
             success: true,
             message: 'User Register successfully',
             user
@@ -43,7 +43,7 @@ export const registerController = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+       return res.status(500).json({
             success: false,
             message: 'error in registration',
             error
@@ -59,26 +59,26 @@ export const loginController = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(404).json({data:{
+            return res.status(404).json({
                 success: false,
                 message: ' email and  password is required',
-            }})
+            })
         }
 
         const user = await userModel.findOne({ email });
         if (!user) {
-            return res.status(404).json({data:{
+            return res.status(404).json({
                 success: false,
                 message: 'Email is not registered'
-            }})
+            })
         }
 
         const match = await comparePassword(password, user.password);
         if (!match) {
-            return res.status(404).json({data:{
+            return res.status(404).json({
                 success: false,
                 message: 'Invalid password'
-            }})
+            })
         }
 
         const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET, {
@@ -86,18 +86,20 @@ export const loginController = async (req, res) => {
         });
 
         res.status(200).json({
-            data:{
+            
             success: true,
             message: 'login Successfully',
             user: {
+                _id:user._id,
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
                 adress: user.adress,
+                role:user.role,
             },
             token,
         }
-        })
+        )
 
     } catch (error) {
         console.log(error);

@@ -1,7 +1,7 @@
 import React, { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
-import { registerdes } from '../pagescss/registercss.css';
+import '../pagescss/registercss.css';
 import { Link } from 'react-router-dom';
 // import { BiHide, BiShow } from 'react-icons/bi'; // Import the Hide icon from react-icons/bi
 import { FaFacebook } from 'react-icons/fa'; // Import the Facebook from Font Awesome
@@ -11,12 +11,18 @@ import ProviderContext from '../../Context/ProviderContext';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import usePasswordToggle from './usePasswordToggle';
+import { useAuth } from '../../Context/auth';
+import axios from 'axios';
 library.add(faEye, faEyeSlash);
 
 
 // const Register = () => {
 const Register = () => {
 
+  const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
+  const [ConfirmPasswordInputType, ToggleIconConfirmPassword, toggleVisibilityConfirmPassword] = usePasswordToggle();
+
+  const [auth,setAuth]=useAuth();
   const history = useNavigate();
   const show = useContext(ProviderContext)
   const [credentials, setCredentials] = useState({ name: "", email: "", phone: "", password: "",cpassword: "" })
@@ -33,17 +39,22 @@ const Register = () => {
         body: JSON.stringify({ name: credentials.name, email: credentials.email, phone: credentials.phone, password: credentials.password,cpassword: credentials.cpassword })
       });
       const json = await response.json();
-      console.log(json)
+      // console.log(json)
 
       if (json.success) {
         show.updateError(1,'success',"Registered successfully");
         setTimeout(() => {
           show.updateError(0," "," ")
         }, 2000);
-        localStorage.setItem('token', json.token)
-        localStorage.setItem('name', json.user.name)
+
+        localStorage.setItem('auth',JSON.stringify(json))
         history('/')
-        console.log('User Registered');
+        setAuth({
+          ...auth,
+          user:json.user,
+          token:json.token
+        })
+        // console.log('User Registered');
         // props.showAlert("created user successfully", 'success')
       }
       else {
@@ -59,23 +70,78 @@ const Register = () => {
     catch (error) {
       console.log(error)
     }
-  }
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value })
-  }
+    
+  // const requiredFields = ['name', 'email', 'phone', 'password', 'cpassword'];
+  // const missingFields = requiredFields.filter((field) => !credentials[field]);
+
+  // if (missingFields.length > 0) {
+  //   console.log('Please fill in all required fields.');
+  //   return;
+  // }
+  //   e.preventDefault();
+
+  //   const requestData = {
+  //     name: credentials.name || "",
+  //     email: credentials.email,
+  //     phone: credentials.phone,
+  //     password: credentials.password,
+  //     cpassword: credentials.cpassword,
+  //   };
+  
+  //   try {
+  //     const response = await axios.post('http://localhost:8080/api/v1/auth/register', requestData, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // You can include other headers here, such as the "auth-token" header
+  //       },
+  //     });
+  
+  //     const json =  response.data;
+  
+  //     if (json.success) {
+  //       show.updateError(1, 'success', 'Registered successfully');
+  //       setTimeout(() => {
+  //         show.updateError(0, ' ', ' ');
+  //       }, 2000);
+  
+  //       localStorage.setItem('auth', JSON.stringify(json));
+  //       history('/');
+  //       setAuth({
+  //         ...auth,
+  //         user: json.user,
+  //         token: json.token,
+  //       });
+  //     } else {
+
+  //       show.updateError(1, 'danger', JSON.stringify(json.message));
+  //       setTimeout(() => {
+  //         show.updateError(0, ' ', ' ');
+  //       }, 2000);
+  
+  //       history('../Register');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     console.log("error in register user")
+  //   }
+  
+  // }
+
   // const [PasswordInputType, ToggleIcon]= usePasswordToggle();
 
-  const [PasswordInputType, ToggleIconPassword, toggleVisibilityPassword] = usePasswordToggle();
-  const [ConfirmPasswordInputType, ToggleIconConfirmPassword, toggleVisibilityConfirmPassword] = usePasswordToggle();
+  
 
   //  const onRegisterSuccess = () => {
   //   setIsLoggedIn(true);
   //  }//added
 
-
+  }
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
   return (
     <>
-      <registerdes>
+      
         <Layout title={"Register-Ashutosh Enterprise"}>
           <section className='rcontainer forms'>
             <div className='form signup'>
@@ -128,7 +194,7 @@ const Register = () => {
             </div>
           </section>
         </Layout>
-      </registerdes>
+
     </>
   )
 }

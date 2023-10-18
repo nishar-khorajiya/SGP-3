@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
+// import { useAuth } from '../../Context/auth';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -35,9 +36,8 @@ const Header = () => {
   const usernameLength = username.length;
 
   // Determine the CSS classes based on user login status and username length
-  const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${
-    isUserLoggedIn ? 'logged-in' : 'logged-out'
-  } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
+  const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${isUserLoggedIn ? 'logged-in' : 'logged-out'
+    } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
 
   const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
 
@@ -111,6 +111,7 @@ const Header = () => {
                       Register
                     </NavLink>
                   </li>
+
                   <li className="nav-item">
                     <NavLink to="/login" className="nav-link">
                       Login
@@ -118,12 +119,57 @@ const Header = () => {
                   </li>
                 </form>
               ) : (
-                <div style={{ color: 'blue' }}>
-                  <label className="mx-2 my-2">Welcome,{getName(auth)}</label>
-                  <button className="btn btn-primary" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </div>
+                // <ul className='dropdown-menu'>
+                //   <li>
+                //     <li>
+                //       <NavLink to={`/dashboard/${auth?.user?.role == 1 ? 'admin' : 'user'}`} className="nav-link">
+                //         Dashboard
+                //       </NavLink>
+                //     </li>
+                //   </li>
+                //   <li>
+                //     <div style={{ color: 'blue' }}>
+                //       <label className="mx-2 my-2">{getName(auth)}</label>
+                //       <button className="btn btn-primary" onClick={handleLogout}>
+                //         Logout
+                //       </button>
+                //     </div>
+                //   </li>
+                // </ul>
+                <>
+                <li className="nav-item dropdown">
+                  <NavLink
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    style={{ border: "none" }}
+                  >
+                    {auth?.user?.name}
+                  </NavLink>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                        className="dropdown-item"
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        onClick={handleLogout}
+                        to="/login"
+                        className="dropdown-item"
+                      >
+                        Logout
+                      </NavLink>
+                    </li>
+                  </ul>
+                </li>
+              </>
               )}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
