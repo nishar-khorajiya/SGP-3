@@ -1,9 +1,9 @@
 import express from 'express'
 const app = express();
-import cors  from  'cors';
+import cors from 'cors';
 import dotenv from 'dotenv';
-import morgan from  'morgan';
-import {connectDB} from   './config/db.js';
+import morgan from 'morgan';
+import { connectDB } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import categoryRotes from './routes/categoryRoutes.js'
 import productRoutes from './routes/productRoutes.js'
@@ -15,10 +15,10 @@ import productRoutes from './routes/productRoutes.js'
 dotenv.config();
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    exposedHeaders: 'Authorization',
-    exposedHeaders: 'user',
-  }));
+  origin: 'http://localhost:3000',
+  exposedHeaders: 'Authorization',
+  exposedHeaders: 'user',
+}));
 //database
 connectDB();
 
@@ -29,19 +29,19 @@ app.set('case sensitive routing', true);
 app.set('strict routing', true);
 
 //routes
-app.use('/api/v1/auth',authRoutes);
-app.use('/api/v1/category',categoryRotes);
-app.use('/api/v1/product',productRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/category', categoryRotes);
+app.use('/api/v1/product', productRoutes);
 
 //rest api
 // app.get('/',(req,res)=>{
 //    res.end(`<h1>welcome to Ashutosh Enterprise</h1>`)
 
-const port = process.env.PORT||8080;
+const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
 
-    res.send("hello")
+  res.send("hello")
 })
 
 
@@ -69,5 +69,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(port, () => {
- console.log(`server running on ${port}`);
+  console.log(`server running on ${port}`);
 })

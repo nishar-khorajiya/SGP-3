@@ -24,6 +24,7 @@ export const requireSignIn = async (req, res, next) => {
     req.user = decoded; // Attach the decoded user information to the request
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ message: "Token is invalid or expired" });
   }
 };
@@ -37,7 +38,7 @@ export const isAdmin = async (req, res, next) => {
   const user1 = JSON.parse(req.headers['login-user']);
     try {
         const user = await userModel.findById(user1._id)
-        console.log(user)
+        // console.log(user)
         if (user.role != 1) {
             return res.status(401).json({
                 success: false,
@@ -49,7 +50,7 @@ export const isAdmin = async (req, res, next) => {
             next();
         }
     } catch (error) {
-        console.log(error+user1);
+        console.log(error);
         res.status(401).json({
             success: false,
             error,
