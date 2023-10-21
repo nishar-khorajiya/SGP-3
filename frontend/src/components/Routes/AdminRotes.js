@@ -19,7 +19,8 @@ export default function AdminRoutes() {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
-          "login-user": JSON.stringify(auth?.user)
+          "login-user": JSON.stringify(auth?.user),
+          "Authorization": auth?.token
         },
 
 

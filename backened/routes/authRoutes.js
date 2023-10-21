@@ -22,7 +22,7 @@ router.get("/user-auth",requireSignIn,(req,res)=>{
 })
 
 //protected admin routes
-router.get("/admin-auth",isAdmin,(req,res)=>{
+router.get("/admin-auth",requireSignIn,isAdmin,(req,res)=>{
     res.status(200).send({ok:true})
 })
 

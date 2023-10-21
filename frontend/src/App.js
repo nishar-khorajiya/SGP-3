@@ -15,6 +15,12 @@ import Industry from './pages/industry';
 import Dashboard from './pages/user/Dashboard';
 import PrivateRoutes from './components/Routes/Private';
 import AdminRoutes from './components/Routes/AdminRotes';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import CreateCategory from './pages/Admin/CreateCategory';
+import CreateProduct from './pages/Admin/CreateProduct';
+import Users from './pages/Admin/Users';
+import Orders from './pages/user/Orders';
+import Profile from './pages/user/Profile';
 
 function App() {
   return (
@@ -25,9 +31,14 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<PrivateRoutes/>} >
             <Route path='user' element={<Dashboard/>}/>
+            <Route path='user/orders' element={<Orders/>}/>
+            <Route path='user/profile' element={<Profile/>}/>
           </Route>
           <Route path="/dashboard" element={<AdminRoutes/>} >
-            <Route path='admin' element={<Dashboard/>}/>
+            <Route path='admin' element={<AdminDashboard/>}/>
+            <Route path='admin/create-category' element={<CreateCategory/>}/>
+            <Route path='admin/create-product' element={<CreateProduct/>}/>
+            <Route path='admin/users' element={<Users/>}/>
           </Route>
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />

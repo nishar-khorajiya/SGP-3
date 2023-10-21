@@ -13,7 +13,7 @@ export const requireSignIn = async (req, res, next) => {
     //     console.log("JWT required");
     // }
   const token = req.headers['authorization'];
-  console.log(token)
+  // console.log(token)
   
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -24,6 +24,7 @@ export const requireSignIn = async (req, res, next) => {
     req.user = decoded; // Attach the decoded user information to the request
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ message: "Token is invalid or expired" });
   }
 };
@@ -37,6 +38,7 @@ export const isAdmin = async (req, res, next) => {
   const user1 = JSON.parse(req.headers['login-user']);
     try {
         const user = await userModel.findById(user1._id)
+        // console.log(user)
         if (user.role != 1) {
             return res.status(401).json({
                 success: false,
