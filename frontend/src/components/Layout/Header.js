@@ -1,12 +1,40 @@
-import React from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import React, {useState,useEffect} from 'react';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
-// import { useAuth } from '../../Context/auth';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const history = useNavigate();
+  const location=useLocation();
+
+  const [selectedCategory, setSelectedCategory] = useState("Category");
+
+  const handleCategoryClick = (categoryName) => {
+    setSelectedCategory(categoryName);
+  };
+
+  const resetSelectedCategory = () => {
+    setSelectedCategory("Category");
+  };
+
+  const getCurrentPageName = () => {
+    const path = location.pathname;
+    switch (path) {
+      case '/cement':
+        return 'Cements';
+      case '/paint':
+        return 'Paints';
+      case '/industry':
+        return 'Industry Items';
+      default:
+        return 'Category';
+    }
+  };
+
+  const isHomePage = location.pathname === '/';
+
+  
 
   const handleLogout = () => {
     setAuth({
@@ -66,8 +94,9 @@ const Header = () => {
             </Link>
             <ul className="nav nav-pills ml-auto" style={{ paddingLeft: '350px' }}>
               <li className="nav-item">
-                <NavLink to="/" className="nav-link" aria-current="page">
-                  Home
+                <NavLink to="/" className="nav-link" aria-current="page" onClick={resetSelectedCategory} >
+                  {/* Home */}
+                  {isHomePage ? 'Home' : 'Home'}
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
@@ -78,27 +107,31 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Category
-                </NavLink>
+                {/* Category */}
+                {isHomePage ? 'Category' : getCurrentPageName()}
+                </NavLink> 
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink to="/cement" className="dropdown-item">
-                      Cements
+                    <NavLink to="/cement" className="dropdown-item" onClick={() => handleCategoryClick("Cements")}>
+                      {/* Cements */}
+                      {selectedCategory === "Cements" ? "Cements" : "Cements"}
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/paint" className="dropdown-item">
-                      Paints
+                    <NavLink to="/paint" className="dropdown-item" onClick={() => handleCategoryClick("Paints")}>
+                      {/* Paints */}
+                      {selectedCategory === "Paints" ? "Paints" : "Paints"}
                     </NavLink>
-                    <NavLink to="/industry" className="dropdown-item">
-                      Industry items
+                    <NavLink to="/industry" className="dropdown-item" onClick={() => handleCategoryClick("Industry Items")}>
+                      {/* Industry items */}
+                      {selectedCategory === "Industry Items" ? "Industry Items" : "Industry Items"}
                     </NavLink>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <NavLink to="/more" className="dropdown-item">
+                    <NavLink to="/more" className="dropdown-item" >
                       More
                     </NavLink>
                   </li>

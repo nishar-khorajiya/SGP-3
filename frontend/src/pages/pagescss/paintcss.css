@@ -1,0 +1,27 @@
+/* Ensure the carousel's height and other elements are not affected */
+.product-scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 20px 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .product-scroll-row {
+    display: inline-flex;
+    width: 100%;
+  }
+  
+  .product-col {
+    width: 300px; /* Adjust the width of each card as needed */
+    margin-right: 10px;
+    white-space: normal;
+  }
+  
+  /* Add any additional styling as needed */
+  .product-card {
+    /* Your card styling here */
+    height: 100%;
+  }
+  

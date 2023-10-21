@@ -53,7 +53,6 @@ const Paint = () => {
         </Carousel.Item>
       </Carousel>
 
-      {/* Ambuja Cement Category Cards */}
       <Container className="mt-4">
         <h2>Asian Paints</h2>
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
@@ -81,8 +80,6 @@ const Paint = () => {
         </Row>
       </Container>
       
-
-      {/* Ultratech Cement Category Cards */}
       <Container className="mt-4">
         <h2>Berger Paints</h2>
         <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">

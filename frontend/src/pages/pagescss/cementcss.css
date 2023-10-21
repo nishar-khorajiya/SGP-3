@@ -1,0 +1,17 @@
+
+.logged-in .nav-pills {
+    margin-left: auto;
+  }
+  
+  .logged-in .nav-link {
+    padding: 10px 15px;
+    margin-right: 12px; /* Adjust the right margin when logged in */
+  }
+
+  .header-logged-in .nav-pills {
+  margin-left: auto; /* Reset the margin when on other pages */
+}
+
+
+
+  

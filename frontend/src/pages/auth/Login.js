@@ -4,6 +4,7 @@ import Layout from '../../components/Layout/Layout';
 import '../pagescss/logincss.css';
 import { Link } from 'react-router-dom';
 import { FaFacebook } from 'react-icons/fa';
+import Gogglelogo from '../photospages/gogglelogo.jpg';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -112,13 +113,11 @@ const Login = () => {
             <div className='line'></div>
 
             <div className='media-options'>
-
-              {/* <GoogleLogin
-                  buttonText="Login with Google"
-                  // cookiePolicy={'single_host_origin'}
-                  // prompt="select_account" // Add this line
-                  className='field goggle'
-                />  */}
+            <Link to="/" className='field google'>
+                  {/* <FaGoogle className="google-icon" /> Use the FaGoogle icon */}
+                  <img src={Gogglelogo} alt="" className='google-icon' />
+                  <span>Login With Google</span>
+                </Link>
               <Link to="/" className='field facebook'>
                 <FaFacebook className="facebook-icon" style={{ fontSize: '22px' }} /> {/* Use the FaFacebook icon */}
                 <span>Login With Facebook</span>
