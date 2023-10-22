@@ -2,7 +2,7 @@ import React,{useState,useRef} from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
-import useCategory from '../../hooks/useCategory';
+import useCategory from '../../hooks/useCategory.js';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
