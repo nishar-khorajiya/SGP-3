@@ -92,7 +92,9 @@ const UpdateProduct = () => {
 
     //delete a product
     const handleDelete = async () => {
+        
         try {
+            
             let answer = window.prompt("Are You Sure want to delete this product ? ");
             if (!answer) return;
             const { data } = await axios.delete(
