@@ -5,7 +5,7 @@ import JWT from 'jsonwebtoken';
 export const registerController = async (req, res) => {
     try {
 
-        const { name, email, password, phone ,cpassword} = req.body;
+        const { name, email, password, phone ,cpassword,address} = req.body;
         // const {  email, password } = req.body;
 
         //is any field blank
@@ -14,7 +14,8 @@ export const registerController = async (req, res) => {
         if (!password) { return res.status(400).json({ success: false,message: 'password is required' }) }
         if (!cpassword) { return res.status(400).json({ success: false,message: 'confirm password is required' }) }
         if (!phone) { return res.status(400).json({ success: false,message: 'phone number is required' }) }
-        // if (!adress) { return res.send({ error: 'Adress is required' }) }
+        if (!address) { return res.status(400).json({ success: false,message: 'address is required' }) }
+        // if (!address) { return res.send({ error: 'Address is required' }) }
 
         if (password !== cpassword) {
             return res.status(400).json({success: false, message: 'Passwords do not match' });
@@ -33,7 +34,7 @@ export const registerController = async (req, res) => {
         const hashedPassword = await hashpassword(password);
 
         //save
-        const user = await new userModel({ name, email, phone, password: hashedPassword }).save();
+        const user = await new userModel({ name, email, phone,address, password: hashedPassword }).save();
 
         return res.status(201).json({
             success: true,
@@ -94,7 +95,7 @@ export const loginController = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
-                adress: user.adress,
+                address: user.address,
                 role:user.role,
             },
             token,
@@ -110,6 +111,62 @@ export const loginController = async (req, res) => {
         })
     }
 }
+
+//get all user
+export const GetAllUserController = async(req, res) => {
+   try{
+        const allusers =await userModel.find({});
+        if(allusers){
+            res.status(200).send({
+                message:"get all users successfully",
+                allusers
+            })
+        }
+        else{
+            res.status(500).send({
+                message:"any user not found"
+            })
+        }
+   }catch(error){
+    console.log(error)
+    res.status(500).send(error+"error in geting all user")
+   }
+}
+
+//update prfole
+export const updateProfileController = async (req, res) => {
+    try {
+      const { name, email, password, phone ,address} = req.body;
+      const user = await userModel.findById(req.user._id);
+      //password
+      if (password && password.length < 6) {
+        return res.json({ error: "Passsword is required and 6 character long" });
+      }
+      const hashedPassword = password ? await hashPassword(password) : undefined;
+      const updatedUser = await userModel.findByIdAndUpdate(
+        req.user._id,
+        { email:email || user.email,
+          name: name || user.name,
+          address: address || user.address,
+          password: hashedPassword || user.password,
+          phone: phone || user.phone,
+        },
+        { new: true }
+      );
+      res.status(200).send({
+        success: true,
+        message: "Profile Updated SUccessfully",
+        updatedUser,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({
+        success: false,
+        message: "Error WHile Update profile",
+        error,
+      });
+    }
+  };
 
 
 //test controller

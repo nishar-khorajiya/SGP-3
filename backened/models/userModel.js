@@ -19,10 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // adress: {
-    //     type: String,
-    //     required: true
-    // },
+    address: {
+        type: Object,
+        required: true
+    },
     role: {
         type: Number,
         default: 0
