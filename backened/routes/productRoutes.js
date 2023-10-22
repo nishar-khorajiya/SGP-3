@@ -7,6 +7,7 @@ import {
   productPhotoController,
   deleteProductController,
   updateProductController,
+  productCategoryController,
 } from "../controllers/productController.js";
 
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -32,5 +33,8 @@ router.delete("/delete-product/:pid", deleteProductController);
 
 //update product
 router.put("/update-product/:pid",requireSignIn,isAdmin,formidable(),updateProductController);
+
+//category wise product
+router.get("/product-category/:slug", productCategoryController);
 
 export default router;

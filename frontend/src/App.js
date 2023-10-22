@@ -23,40 +23,44 @@ import Orders from './pages/user/Orders';
 import Profile from './pages/user/Profile';
 import Products from './pages/Admin/Products';
 import UpdateProduct from './pages/Admin/UpdateProduct';
+import Categories from './pages/Categories';
+import CategoryProduct from './pages/CategoryProduct';
 
 function App() {
   return (
     <>
-    <StatesProvider>
-    <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/dashboard" element={<PrivateRoutes/>} >
-            <Route path='user' element={<Dashboard/>}/>
-            <Route path='user/orders' element={<Orders/>}/>
-            <Route path='user/profile' element={<Profile/>}/>
-          </Route>
-          <Route path="/dashboard" element={<AdminRoutes/>} >
-            <Route path='admin' element={<AdminDashboard/>}/>
-            <Route path='admin/create-category' element={<CreateCategory/>}/>
-            <Route path='admin/create-product' element={<CreateProduct/>}/>
-            <Route path='admin/products' element={<Products/>}/>
-            <Route path="admin/product/:slug" element={<UpdateProduct/>} />
-            <Route path='admin/users' element={<Users/>}/>
-          </Route>
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/policy" element={<Policy />} />
-          <Route path="/*" element={<Pagenotfound />} />
-          <Route path="/cement" element={<Cement />} />
-          <Route path="/paint" element={<Paint />} />
-          <Route path="/industry" element={<Industry />} />
-        </Routes>
-    </Router>
-    </StatesProvider>
+      <StatesProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/categories" element={<Categories/>} />
+            <Route path="/category/:slug" element={<CategoryProduct />} />
+            <Route path="/dashboard" element={<PrivateRoutes />} >
+              <Route path='user' element={<Dashboard />} />
+              <Route path='user/orders' element={<Orders />} />
+              <Route path='user/profile' element={<Profile />} />
+            </Route>
+            <Route path="/dashboard" element={<AdminRoutes />} >
+              <Route path='admin' element={<AdminDashboard />} />
+              <Route path='admin/create-category' element={<CreateCategory />} />
+              <Route path='admin/create-product' element={<CreateProduct />} />
+              <Route path='admin/products' element={<Products />} />
+              <Route path="admin/product/:slug" element={<UpdateProduct />} />
+              <Route path='admin/users' element={<Users />} />
+            </Route>
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/*" element={<Pagenotfound />} />
+            {/* <Route path="/cement" element={<Cement />} />
+            <Route path="/paint" element={<Paint />} />
+            <Route path="/industry" element={<Industry />} /> */}
+          </Routes>
+        </Router>
+      </StatesProvider>
     </>
   );
 }

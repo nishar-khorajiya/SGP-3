@@ -1,11 +1,12 @@
-import React from 'react';
+import React,{useState,useRef} from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
-// import { useAuth } from '../../Context/auth';
+import useCategory from '../../hooks/useCategory';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const categories = useCategory();
   const history = useNavigate();
 
   const handleLogout = () => {
@@ -15,8 +16,7 @@ const Header = () => {
       token: '',
     });
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
+    localStorage.removeItem('auth');
     history('/');
   };
 
@@ -40,6 +40,17 @@ const Header = () => {
     } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
 
   const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
+  
+  const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
+  const categoryDropdownRef = useRef(null);
+
+  const toggleCategoryDropdown = () => {
+    setCategoryDropdownActive(!categoryDropdownActive);
+  };
+
+  const handleCategoryItemSelected = () => {
+    setCategoryDropdownActive(false);
+  };
 
   return (
     <>
@@ -70,42 +81,60 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
+
+              {/* <li className="nav-item dropdown">
                 <NavLink
-                  to="/category"
-                  className="nav-link dropdown-toggle"
-                  role="button"
+                  className="nav-link dropdown-toggle  "
+                  to={"/categories"}
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  
                 >
-                  Category
+                  Categories
                 </NavLink>
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink to="/cement" className="dropdown-item">
-                      Cements
+                    <NavLink className="dropdown-item" to={"/categories"}>
+                      All Categories
                     </NavLink>
                   </li>
+                  {categories?.map((c) => (
+                    <li>
+                      <NavLink
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </li> */}
+
+              <li className="nav-item dropdown ">
+                <NavLink
+                  to={"/categories"}
+                  className={`nav-link dropdown-toggle`}
+                  // role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  
+                >
+                  Category
+                </NavLink>
+                <ul className={`dropdown-menu `}>
+                  {categories?.map((c) => (
                   <li>
-                    <NavLink to="/paint" className="dropdown-item">
-                      Paints
-                    </NavLink>
-                    <NavLink to="/industry" className="dropdown-item">
-                      Industry items
+                    <NavLink to={`/category/${c.slug}`} className="dropdown-item">
+                    {c.name}
                     </NavLink>
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <NavLink to="/more" className="dropdown-item">
-                      More
-                    </NavLink>
-                  </li>
+                  ))}
                 </ul>
               </li>
+
               {!auth.user ? (
-                <form className="d-flex">
+                <form className="d-flex ms-2">
                   <li className="nav-item">
                     <NavLink to="/register" className="nav-link">
                       Register
@@ -137,7 +166,7 @@ const Header = () => {
                 //   </li>
                 // </ul>
                 <>
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown ms-2">
                   <NavLink
                     className="nav-link dropdown-toggle"
                     href="#"
