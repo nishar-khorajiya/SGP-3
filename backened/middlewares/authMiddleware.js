@@ -30,9 +30,6 @@ export const requireSignIn = async (req, res, next) => {
 };
 
 
-
-
-
 //admin access
 export const isAdmin = async (req, res, next) => {
   const user1 = JSON.parse(req.headers['login-user']);

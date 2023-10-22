@@ -8,7 +8,10 @@
 /* font-family: 'Playfair Display', serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif; */
-
+.product-link{
+  text-decoration: none !important;
+  color: black;
+}
 .navbar{
   font-family: 'Poppins', sans-serif;
   font-size: 17px;

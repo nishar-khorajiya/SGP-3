@@ -1,40 +1,13 @@
-import React, {useState,useEffect} from 'react';
-import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
+import React,{useState,useRef} from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
+import useCategory from '../../hooks/useCategory.js';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const categories = useCategory();
   const history = useNavigate();
-  const location=useLocation();
-
-  const [selectedCategory, setSelectedCategory] = useState("Category");
-
-  const handleCategoryClick = (categoryName) => {
-    setSelectedCategory(categoryName);
-  };
-
-  const resetSelectedCategory = () => {
-    setSelectedCategory("Category");
-  };
-
-  const getCurrentPageName = () => {
-    const path = location.pathname;
-    switch (path) {
-      case '/cement':
-        return 'Cements';
-      case '/paint':
-        return 'Paints';
-      case '/industry':
-        return 'Industry Items';
-      default:
-        return 'Category';
-    }
-  };
-
-  const isHomePage = location.pathname === '/';
-
-  
 
   const handleLogout = () => {
     setAuth({
@@ -43,8 +16,7 @@ const Header = () => {
       token: '',
     });
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
+    localStorage.removeItem('auth');
     history('/');
   };
 
@@ -68,6 +40,17 @@ const Header = () => {
     } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
 
   const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
+  
+  const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
+  const categoryDropdownRef = useRef(null);
+
+  const toggleCategoryDropdown = () => {
+    setCategoryDropdownActive(!categoryDropdownActive);
+  };
+
+  const handleCategoryItemSelected = () => {
+    setCategoryDropdownActive(false);
+  };
 
   return (
     <>
@@ -94,51 +77,64 @@ const Header = () => {
             </Link>
             <ul className="nav nav-pills ml-auto" style={{ paddingLeft: '350px' }}>
               <li className="nav-item">
-                <NavLink to="/" className="nav-link" aria-current="page" onClick={resetSelectedCategory} >
-                  {/* Home */}
-                  {isHomePage ? 'Home' : 'Home'}
+                <NavLink to="/" className="nav-link" aria-current="page">
+                  Home
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
+
+              {/* <li className="nav-item dropdown">
                 <NavLink
-                  to="/category"
-                  className="nav-link dropdown-toggle"
-                  role="button"
+                  className="nav-link dropdown-toggle  "
+                  to={"/categories"}
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  
                 >
-                {/* Category */}
-                {isHomePage ? 'Category' : getCurrentPageName()}
-                </NavLink> 
+                  Categories
+                </NavLink>
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink to="/cement" className="dropdown-item" onClick={() => handleCategoryClick("Cements")}>
-                      {/* Cements */}
-                      {selectedCategory === "Cements" ? "Cements" : "Cements"}
+                    <NavLink className="dropdown-item" to={"/categories"}>
+                      All Categories
                     </NavLink>
                   </li>
+                  {categories?.map((c) => (
+                    <li>
+                      <NavLink
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </li> */}
+
+              <li className="nav-item dropdown ">
+                <NavLink
+                  to={"/categories"}
+                  className={`nav-link dropdown-toggle`}
+                  // role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  
+                >
+                  Category
+                </NavLink>
+                <ul className={`dropdown-menu `}>
+                  {categories?.map((c) => (
                   <li>
-                    <NavLink to="/paint" className="dropdown-item" onClick={() => handleCategoryClick("Paints")}>
-                      {/* Paints */}
-                      {selectedCategory === "Paints" ? "Paints" : "Paints"}
-                    </NavLink>
-                    <NavLink to="/industry" className="dropdown-item" onClick={() => handleCategoryClick("Industry Items")}>
-                      {/* Industry items */}
-                      {selectedCategory === "Industry Items" ? "Industry Items" : "Industry Items"}
+                    <NavLink to={`/category/${c.slug}`} className="dropdown-item">
+                    {c.name}
                     </NavLink>
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <NavLink to="/more" className="dropdown-item" >
-                      More
-                    </NavLink>
-                  </li>
+                  ))}
                 </ul>
               </li>
+
               {!auth.user ? (
-                <form className="d-flex">
+                <form className="d-flex ms-2">
                   <li className="nav-item">
                     <NavLink to="/register" className="nav-link">
                       Register
@@ -170,7 +166,7 @@ const Header = () => {
                 //   </li>
                 // </ul>
                 <>
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown ms-2">
                   <NavLink
                     className="nav-link dropdown-toggle"
                     href="#"
