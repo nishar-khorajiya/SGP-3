@@ -52,6 +52,29 @@ const CreateCategory = () => {
         getAllCategory();
     }, []);
 
+ //delete category
+ const handleDelete = async (pId) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/v1/category/delete-category/${pId}`,
+        {
+            headers: {
+                "login-user": JSON.stringify(auth?.user),
+                "Authorization": auth?.token
+            }
+        }
+      );
+      if (data.success) {
+        console.log(`category is deleted`);
+
+        getAllCategory();
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log("Somtihing went wrong");
+    }
+  };
 
     //update category
     const handleUpdate = async (e) => {
@@ -114,7 +137,9 @@ const CreateCategory = () => {
                                                             setUpdatedName(c.name);
                                                             setSelected(c);
                                                         }}>Edit</button>
-                                                        <button className='btn btn-danger ms-2'>Delete</button>
+                                                        <button className='btn btn-danger ms-2' onClick={() => {
+                                                            handleDelete(c._id);
+                                                        }}>Delete</button>
                                                     </td>
                                                 </tr>
                                             </>
