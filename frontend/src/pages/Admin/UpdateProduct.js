@@ -25,8 +25,9 @@ const UpdateProduct = () => {
     const getSingleProduct = async () => {
         try {
             const { data } = await axios.get(
-                `http://localhost:8080/api/v1/product/get-product/${params.slug}`
+                `http://localhost:8080/api/v1/product/get-product/${params.pid}`
             );
+            console.log(data.product)
             setName(data.product.name);
             setId(data.product._id);
             setDescription(data.product.description);
@@ -34,15 +35,15 @@ const UpdateProduct = () => {
             setPrice(data.product.price);
             setQuantity(data.product.quantity);
             setShipping(data.product.shipping);
-            setCategory(data.product.category._id);
+            setCategory(data.product.category);
         } catch (error) {
             console.log(error);
         }
     };
     useEffect(() => {
-        getSingleProduct();
-        //eslint-disable-next-line
-    }, []);
+         getSingleProduct();
+      }, []);
+
     //get all category
     const getAllCategory = async () => {
         try {

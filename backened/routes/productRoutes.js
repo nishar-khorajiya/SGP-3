@@ -9,6 +9,9 @@ import {
   updateProductController,
   productCategoryController,
   realtedProductController,
+  braintreeTokenController,
+  brainTreePaymentController
+
 } from "../controllers/productController.js";
 
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -24,7 +27,7 @@ router.post("/create-product", requireSignIn, isAdmin, formidable(), createProdu
 router.get("/get-product", getProductController);
 
 //get single product without photo
-router.get("/get-product/:slug", getSingleProductController);
+router.get("/get-product/:pid", getSingleProductController);
 
 //get photo
 router.get('/product-photo/:pid', productPhotoController)
@@ -40,5 +43,12 @@ router.get("/product-category/:slug", productCategoryController);
 
 //similar product
 router.get("/related-product/:pid/:cid", realtedProductController);
+
+//payments routes
+//token
+router.get("/braintree/token", braintreeTokenController);
+
+//payments
+router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
 
 export default router;
