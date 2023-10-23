@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
@@ -35,12 +35,18 @@ const Header = () => {
   const username = getName(auth);
   const usernameLength = username.length;
 
-  // Determine the CSS classes based on user login status and username length
-  const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${isUserLoggedIn ? 'logged-in' : 'logged-out'
-    } ${usernameLength < 6 ? 'header-short-username' : 'header-long-username'}`;
+  const [activePage, setActivePage] = useState('Category'); // Set the initial value to "Category"
+
+  const handleCategoryPageClick = (page) => {
+    setActivePage(page);
+  };
+
+  const navbarClasses = `navbar navbar-expand-lg bg-body-tertiary ${
+    isUserLoggedIn ? 'logged-in' : 'logged-out'
+  } ${usernameLength < 10 ? 'header-short-username' : 'header-long-username'}`;
 
   const brandClasses = `navbar-brand ${isUserLoggedIn ? 'logged-in' : 'logged-out'}`;
-  
+
   const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
   const categoryDropdownRef = useRef(null);
 
@@ -81,58 +87,29 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
-
-              {/* <li className="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <NavLink
-                  className="nav-link dropdown-toggle  "
-                  to={"/categories"}
+                  to="/categories"
+                  className={`nav-link dropdown-toggle`}
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  
                 >
-                  Categories
+                  {activePage}
                 </NavLink>
-                <ul className="dropdown-menu">
-                  <li>
-                    <NavLink className="dropdown-item" to={"/categories"}>
-                      All Categories
-                    </NavLink>
-                  </li>
+                <ul className={`dropdown-menu`}>
                   {categories?.map((c) => (
-                    <li>
+                    <li key={c.slug}>
                       <NavLink
-                        className="dropdown-item"
                         to={`/category/${c.slug}`}
+                        className="dropdown-item"
+                        onClick={() => handleCategoryPageClick(c.name)} // Set the active page
                       >
                         {c.name}
                       </NavLink>
                     </li>
                   ))}
                 </ul>
-              </li> */}
-
-              <li className="nav-item dropdown ">
-                <NavLink
-                  to={"/categories"}
-                  className={`nav-link dropdown-toggle`}
-                  // role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  
-                >
-                  Category
-                </NavLink>
-                <ul className={`dropdown-menu `}>
-                  {categories?.map((c) => (
-                  <li>
-                    <NavLink to={`/category/${c.slug}`} className="dropdown-item">
-                    {c.name}
-                    </NavLink>
-                  </li>
-                  ))}
-                </ul>
               </li>
-
               {!auth.user ? (
                 <form className="d-flex ms-2">
                   <li className="nav-item">
@@ -148,57 +125,38 @@ const Header = () => {
                   </li>
                 </form>
               ) : (
-                // <ul className='dropdown-menu'>
-                //   <li>
-                //     <li>
-                //       <NavLink to={`/dashboard/${auth?.user?.role == 1 ? 'admin' : 'user'}`} className="nav-link">
-                //         Dashboard
-                //       </NavLink>
-                //     </li>
-                //   </li>
-                //   <li>
-                //     <div style={{ color: 'blue' }}>
-                //       <label className="mx-2 my-2">{getName(auth)}</label>
-                //       <button className="btn btn-primary" onClick={handleLogout}>
-                //         Logout
-                //       </button>
-                //     </div>
-                //   </li>
-                // </ul>
                 <>
-                <li className="nav-item dropdown ms-2">
-                  <NavLink
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    style={{ border: "none" }}
-                  >
-                    {auth?.user?.name}
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink
-                        to={`/dashboard/${
-                          auth?.user?.role === 1 ? "admin" : "user"
-                        }`}
-                        className="dropdown-item"
-                      >
-                        Dashboard
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        onClick={handleLogout}
-                        to="/login"
-                        className="dropdown-item"
-                      >
-                        Logout
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
-              </>
+                  <li className="nav-item dropdown ms-2">
+                    <NavLink
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      style={{ border: 'none' }}
+                    >
+                      {auth?.user?.name}
+                    </NavLink>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <NavLink
+                          to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`}
+                          className="dropdown-item"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          onClick={handleLogout}
+                          to="/login"
+                          className="dropdown-item"
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+                </>
               )}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">

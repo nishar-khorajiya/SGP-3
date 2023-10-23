@@ -9,7 +9,7 @@
 
 .rcontainer{
     height: 120vh;
-    width: 100%;
+    max-width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,7 +17,7 @@
 }
 
 .form.signup{
-    max-width: 430px;
+    max-width: 420px;
     width: 100%;
     padding: 30px;
     border-radius: 6px;

@@ -17,8 +17,8 @@ font-family: 'Roboto', sans-serif; */
   font-size: 17px;
   text-transform: uppercase;
   background-color: #fff;
-  padding-left: 20px; /* Adjust the left padding to create space for the brand/logo */
-  padding-right: 20px; /* Adjust the right padding for spacing on both sides */
+  padding-left: 15px; /* Adjust the left padding to create space for the brand/logo */
+  padding-right: 15px; /* Adjust the right padding for spacing on both sides */
   width: 100%;
   display: flex;
   justify-content: space-between; /* Add this to align brand and nav-pills */
@@ -152,8 +152,8 @@ font-family: 'Roboto', sans-serif; */
 
 
 .footer-container {
-  position: relative;
   width: 100%;
+  position: relative;
   background: rgba(0, 0, 0, 0.867);
   min-height: 100px;
   padding: 20px 0; /* Adjust top and bottom padding */
@@ -178,7 +178,7 @@ font-family: 'Roboto', sans-serif; */
   display:flex;
   justify-content:center;
   align-items:center;
-  margin:10px 0;
+  margin:12px 0;
   flex-wrap:wrap;
   transition:0.5s;
 }
@@ -210,7 +210,15 @@ font-family: 'Roboto', sans-serif; */
   font-size:1.1em;
 }
 
-.header-short-username {
+.logged-in .header-short-username {
+  /* Rest of your CSS code for length < 6 */
+  .navbar-brand {
+    /* Existing styles for length < 6 */
+    margin-right: 150px; /* Adjust the right margin for short username */
+  }
+}
+
+.logged-out .header-short-username {
   /* Rest of your CSS code for length < 6 */
   .navbar-brand {
     /* Existing styles for length < 6 */
@@ -218,16 +226,29 @@ font-family: 'Roboto', sans-serif; */
   }
 }
 
-.header-long-username {
+.logged-in .header-long-username {
   /* Existing styles for length >= 6 */
   .navbar-brand {
     /* Existing styles for length >= 6 */
-    margin-right: 190px; /* Adjust the right margin for long username */
+    margin-right: 150px; /* Adjust the right margin for long username */
   }
 }
 
+.logged-out .header-long-username {
+  /* Rest of your CSS code for length < 6 */
+  .navbar-brand {
+    /* Existing styles for length < 6 */
+    margin-right: 190px; /* Adjust the right margin for short username */
+  }
+}
+
+.container-fluid{
+  --bs-gutter-x: 0;
+}
 
 
-
-
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: var(--bs-nav-pills-link-active-color);
+  background-color: green;
+}
 
