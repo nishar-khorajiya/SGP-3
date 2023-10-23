@@ -34,6 +34,17 @@ font-family: 'Roboto', sans-serif; */
   margin-right: 200px; /* Add right margin to separate the brand/logo from nav links */
 }
 
+/* Add these CSS rules to your stylesheet */
+.nav-link {
+  text-decoration: none; /* Remove the default underline */
+}
+
+/* Underline the active link */
+.nav-link.active {
+  text-decoration: underline;
+}
+
+
 /* Update the container width to match the browser width */
 .container {
   max-width: 100%; /* Set maximum width to 100% to match browser width */
@@ -103,7 +114,17 @@ font-family: 'Roboto', sans-serif; */
 }
 
 .navbar-collapse {
-  margin-left: 20px;
+  margin-left: 15px;
+}
+
+/* Specific style for .navbar-collapse when the user is logged in */
+.logged-in .navbar-collapse {
+  margin-left: 3px;
+}
+
+/* Specific style for .navbar-collapse when the user is logged out */
+.logged-out .navbar-collapse {
+  margin-left: 15px;
 }
 
 /* Styles specific to the logged-in state */
@@ -122,7 +143,7 @@ font-family: 'Roboto', sans-serif; */
 }
 
 .logged-out .nav-link {
-  padding: 10px 15px;
+  padding: 10px 12px;
   margin-left: 3px; /* Commented out to remove right margin when logged out */
   margin-right: 1px;
 }
@@ -252,3 +273,8 @@ font-family: 'Roboto', sans-serif; */
   background-color: green;
 }
 
+/* Remove the outline on active nav-links */
+.nav-link:active,
+.nav-link:focus {
+  outline: none;
+}
