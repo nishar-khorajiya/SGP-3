@@ -3,10 +3,14 @@ import Layout from "../components/Layout/Layout";
 import '../pages/pagescss/ProductDetailsStyles.css'
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../Context/cartContext";
+
+
 const CategoryProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useCart();
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -59,7 +63,14 @@ const CategoryProduct = () => {
                         >
                           More Details
                         </button>
-                        <button className="btn btn-secondary btn-sm ms-1">
+                        <button className="btn btn-secondary btn-sm ms-1" onClick={() => {
+                          setCart([...cart, p]);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify([...cart, p])
+                          );
+                          console.log("Item Added to cart");
+                        }}>
                           ADD TO CART
                         </button>
                       </div>

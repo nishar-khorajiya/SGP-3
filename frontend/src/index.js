@@ -5,14 +5,17 @@ import App from './App'; // Import the App component
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import { AuthProvider } from './Context/auth';
+import { CartProvider } from './Context/cartContext';
 
 const root = createRoot(document.getElementById('root'));
 
 root.render(
   <AuthProvider>
-  <React.StrictMode>
+    <CartProvider>
+  {/* <React.StrictMode> */}
     <App />
-  </React.StrictMode>
+  {/* </React.StrictMode> */}
+  </CartProvider>
   </AuthProvider>
 );
 

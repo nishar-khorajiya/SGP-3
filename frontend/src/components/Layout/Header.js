@@ -3,9 +3,12 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import web from './webphotos/ashutosh.png';
 import { useAuth } from '../../Context/auth';
 import useCategory from '../../hooks/useCategory.js';
+import { useCart } from "../../Context/cartContext";
+import { Badge } from "antd";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const categories = useCategory();
   const history = useNavigate();
 
@@ -160,9 +163,16 @@ const Header = () => {
               )}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
-                  Cart (0)
+                  Cart<span style={{color:'red'}}>({cart?.length})</span>
                 </NavLink>
               </li>
+               {/* <li className="nav-item">
+                <Badge count={cart?.length} showZero className="nav-link">
+                  <NavLink to="/cart" className="nav-link">
+                    Cart
+                  </NavLink>
+                </Badge>
+              </li> */}
             </ul>
           </div>
         </div>

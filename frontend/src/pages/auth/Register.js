@@ -25,7 +25,7 @@ const Register = () => {
   const [auth,setAuth]=useAuth();
   const history = useNavigate();
   const show = useContext(ProviderContext)
-  const [credentials, setCredentials] = useState({ name: "", email: "", phone: "", password: "",cpassword: "" })
+  const [credentials, setCredentials] = useState({ name: "", email: "", phone: "",address:"", password: "",cpassword: "" })
 
   const handleSubmit = async (e) => {
     try {
@@ -36,7 +36,7 @@ const Register = () => {
           'Content-Type': 'application/json',
           // "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRhOTM2ZWZmYzBjMzVjZTIyMzIyNzdmIn0sImlhdCI6MTY4ODgxNzU0Mn0.3AwNxNtzOERB9LMz86GlQy0gm9hftYe0zPmdMnK7zrc"
         },
-        body: JSON.stringify({ name: credentials.name, email: credentials.email, phone: credentials.phone, password: credentials.password,cpassword: credentials.cpassword })
+        body: JSON.stringify({ name: credentials.name, email: credentials.email, phone: credentials.phone,address: credentials.address, password: credentials.password,cpassword: credentials.cpassword })
       });
       const json = await response.json();
       // console.log(json)
@@ -160,6 +160,9 @@ const Register = () => {
                   </div>
                     <div className='field input-field'>
                     <input type="tel" placeholder='Phone Number' className='form-control rounded-3 input' value={credentials.phone} name='phone'onChange={onChange} id="floatingPhonenumber" />
+                  </div>
+                  <div className='field input-field'>
+                    <input type="text" placeholder='Full Address' className='form-control rounded-3 input' value={credentials.address} name='address'onChange={onChange} id="floatingAddress" />
                   </div>
                   <div className='field input-field'>
                     <input type={PasswordInputType} placeholder='Password' className='form-control rounded-3 password' name='password' value={credentials.password} autoComplete="on" onChange={onChange}  />
