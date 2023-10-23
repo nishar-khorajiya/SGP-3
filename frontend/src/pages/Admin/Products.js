@@ -41,7 +41,7 @@ const Products = () => {
                                         src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`}
                                         className="card-img-top"
                                         alt={p.name}
-                                        style={{ height: "200px" }}
+                                        style={{ height: "200px",width:"215px",paddingLeft:"15%"}}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">{p.name}</h5>

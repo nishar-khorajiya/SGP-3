@@ -83,6 +83,7 @@ const CreateProduct = () => {
                                 size="large"
                                 showSearch
                                 className="form-select mb-3"
+                                style={{cursor:"pointer"}}
                                 onChange={(value) => {
                                     setCategory(value);
                                 }}
@@ -148,7 +149,7 @@ const CreateProduct = () => {
                                 </Select>
                             </div>
                             <div className="mb-3">
-                                <label className="btn btn-outline-secondary col-md-3 mr-auto d-flex">
+                                <label className="btn btn-outline-secondary col-md-auto mr-auto d-flex" style={{ display: 'flex', alignItems: 'center',textAlign:"center" }}>
                                     {photo ? photo.name : "Upload Photo"}
                                     <input
                                         type="file"
@@ -166,6 +167,7 @@ const CreateProduct = () => {
                                             src={URL.createObjectURL(photo)}
                                             alt="product_photo"
                                             height={"200px"}
+                                            width={"150px"}
                                             className="img img-responsive mr-auto d-flex "
                                         />
                                     </div>

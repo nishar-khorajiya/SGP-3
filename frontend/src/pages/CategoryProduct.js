@@ -40,14 +40,14 @@ const CategoryProduct = () => {
               {products?.map((p) => (
                 <div
                   className="card m-2"
-                  style={{ width: "18rem" }}
+                  style={{ width: "18rem"}}
                   key={p._id}
                 >
                   <img
                     src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
-                    style={{ height: '200px' }}
+                    style={{ height: '190px',width:"190px",marginLeft:"25px" }}
                   />
                   <div className="card" style={{ height: '100%' }}>
                     <div className="card-body" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -55,7 +55,7 @@ const CategoryProduct = () => {
                       <p className="card-text">
                         {p.description.substring(0, 30)}...
                       </p>
-                      <p className="card-text">$ {p.price}</p>
+                      <p className="card-text">₹  {p.price}</p>
                       <div style={{ marginTop: 'auto' }}>
                         <button
                           className="btn btn-primary btn-sm"
@@ -63,7 +63,7 @@ const CategoryProduct = () => {
                         >
                           More Details
                         </button>
-                        <button className="btn btn-secondary btn-sm ms-1" onClick={() => {
+                        <button className="btn btn-success btn-sm ms-1" onClick={() => {
                           setCart([...cart, p]);
                           localStorage.setItem(
                             "cart",

@@ -15,9 +15,9 @@ const CartPage = () => {
       cart?.map((item) => {
         total = total + item.price;
       });
-      return total.toLocaleString("en-US", {
+      return total.toLocaleString("en-IN", {
         style: "currency",
-        currency: "USD",
+        currency: "INR",
       });
     } catch (error) {
       console.log(error);
@@ -53,9 +53,9 @@ const CartPage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             {cart?.map((p) => (
-              <div className="row mb-2 p-3 card flex-row">
+              <div className="row mb-2 p-4 card flex-row" style={{marginLeft:"10%"}}>
                 <div className="col-md-4">
                   <img
                     src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`}
@@ -79,7 +79,7 @@ const CartPage = () => {
               </div>
             ))}
           </div>
-          <div className="col-md-6 text-center">
+          <div className="col-md-6 text-center" style={{marginLeft:"10%"}}>
             <h2>Cart Summary</h2>
             <p>Total | Checkout | Payment</p>
             <hr />

@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+/* .navbar-nav{
+  margin-left: 40%;
+} */
+
+
 /* font-family: 'Playfair Display', serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif; */
@@ -12,13 +17,14 @@ font-family: 'Roboto', sans-serif; */
   text-decoration: none !important;
   color: black;
 }
+
 .navbar{
   font-family: 'Poppins', sans-serif;
   font-size: 17px;
   text-transform: uppercase;
   background-color: #fff;
-  padding-left: 15px; /* Adjust the left padding to create space for the brand/logo */
-  padding-right: 15px; /* Adjust the right padding for spacing on both sides */
+  padding-left: 20px; /* Adjust the left padding to create space for the brand/logo */
+  padding-right: 20px; /* Adjust the right padding for spacing on both sides */
   width: 100%;
   display: flex;
   justify-content: space-between; /* Add this to align brand and nav-pills */
@@ -44,7 +50,6 @@ font-family: 'Roboto', sans-serif; */
   text-decoration: underline;
 }
 
-
 /* Update the container width to match the browser width */
 .container {
   max-width: 100%; /* Set maximum width to 100% to match browser width */
@@ -62,25 +67,6 @@ font-family: 'Roboto', sans-serif; */
 .logged-out .navbar {
   padding-left: 20px; /* Adjust the left padding when logged out */
   padding-right: 20px; /* Adjust the right padding when logged out */
-}
-
-
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
-}
-
-.nav-scroller .nav {
-  display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
 }
 
 .pnf{
@@ -267,14 +253,14 @@ font-family: 'Roboto', sans-serif; */
   --bs-gutter-x: 0;
 }
 
-
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-  color: var(--bs-nav-pills-link-active-color);
-  background-color: green;
+.nav-link{
+  color: blue;
 }
 
-/* Remove the outline on active nav-links */
-.nav-link:active,
-.nav-link:focus {
-  outline: none;
+.nav-link:hover{
+  color: red;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  color: blue;
 }
