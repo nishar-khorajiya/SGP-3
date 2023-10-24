@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../pages/pagescss/ProductDetailsStyles.css";
 
 const ProductDetails = () => {
+
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
@@ -12,16 +13,16 @@ const ProductDetails = () => {
 
   //initalp details
   useEffect(() => {
-    if (params?.slug) getProduct();
-  }, [params?.slug]);
+    if (params?.pid) getProduct();
+  }, [params?.pid]);
   //getProduct
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product/${params.slug}`
+        `http://localhost:8080/api/v1/product/get-product/${params.pid}`
       );
       setProduct(data?.product);
-      getSimilarProduct(data?.product._id, data?.product.category._id);
+      getSimilarProduct(data?.product._id, data?.product.category);
     } catch (error) {
       console.log(error);
     }
@@ -94,7 +95,7 @@ const ProductDetails = () => {
                 <div className="card-name-price" style={{ marginTop: 'auto' }}>
                   <button
                     className="btn btn-info ms-1 "
-                    onClick={() => navigate(`/product/${p.slug}`)}
+                    onClick={() => navigate(`/product/${p._id}`)}
                   >
                     More Details
                   </button>

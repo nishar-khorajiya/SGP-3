@@ -27,6 +27,7 @@ import Categories from './pages/Categories';
 import CategoryProduct from './pages/CategoryProduct';
 import ProductDetails from './pages/ProductDetails';
 import CartPage from './pages/CartPage';
+import AdminOrders from './pages/Admin/AdminOrders';
 
 function App() {
   return (
@@ -38,30 +39,32 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/categories" element={<Categories/>} />
             <Route path="/category/:slug" element={<CategoryProduct />} />
-            <Route path="/product/:slug" element={<ProductDetails/>} />
+            <Route path="/product/:pid" element={<ProductDetails/>} />
+
             <Route path="/dashboard" element={<PrivateRoutes />} >
               <Route path='user' element={<Dashboard />} />
               <Route path='user/orders' element={<Orders />} />
               <Route path='user/profile' element={<Profile />} />
             </Route>
+
             <Route path="/dashboard" element={<AdminRoutes />} >
               <Route path='admin' element={<AdminDashboard />} />
               <Route path='admin/create-category' element={<CreateCategory />} />
               <Route path='admin/create-product' element={<CreateProduct />} />
               <Route path='admin/products' element={<Products />} />
-              <Route path="admin/product/:slug" element={<UpdateProduct />} />
+              <Route path="admin/product/:pid" element={<UpdateProduct />} />
               <Route path='admin/users' element={<Users />} />
+              <Route path="admin/orders" element={<AdminOrders />} />
             </Route>
+
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />} />
+
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/policy" element={<Policy />} />
             <Route path="/*" element={<Pagenotfound />} />
-            {/* <Route path="/cement" element={<Cement />} />
-            <Route path="/paint" element={<Paint />} />
-            <Route path="/industry" element={<Industry />} /> */}
           </Routes>
         </Router>
       </StatesProvider>

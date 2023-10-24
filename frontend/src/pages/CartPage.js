@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Layout";
 import { useCart } from "../Context/cartContext.js";
 import { useAuth } from "../Context/auth";
+import DropIn from "braintree-web-drop-in-react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
+  const [clientToken, setClientToken] = useState("");
+  const [instance, setInstance] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   //total price
@@ -19,6 +25,7 @@ const CartPage = () => {
         style: "currency",
         currency: "INR",
       });
+
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +42,39 @@ const CartPage = () => {
       console.log(error);
     }
   };
+
+  //get payment gateway token
+  const getToken = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8080/api/v1/product/braintree/token");
+      setClientToken(data?.clientToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getToken();
+  }, [auth?.token]);
+
+  //handle payments
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      const { data } = await axios.post("http://localhost:8080/api/v1/product/braintree/payment", {
+        nonce,
+        cart,
+      });
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/orders");
+      console.log("Payment Completed Successfully ");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
   return (
     <Layout>
       <div className="container">
@@ -45,9 +85,8 @@ const CartPage = () => {
             </h1>
             <h4 className="text-center">
               {cart?.length
-                ? `You Have ${cart.length} items in your cart ${
-                    auth?.token ? "" : "please login to checkout"
-                  }`
+                ? `You Have ${cart.length} items in your cart ${auth?.token ? "" : "please login to checkout"
+                }`
                 : " Your Cart Is Empty"}
             </h4>
           </div>
@@ -120,6 +159,32 @@ const CartPage = () => {
                 )}
               </div>
             )}
+
+            <div className="mt-2">
+              {!clientToken || !cart?.length ? (
+                ""
+              ) : (
+                <>
+                  <DropIn
+                    options={{
+                      authorization: clientToken,
+                      paypal: {
+                        flow: "vault",
+                      },
+                    }}
+                    onInstance={(instance) => setInstance(instance)}
+                  />
+
+                  <button
+                    className="btn btn-primary"
+                    onClick={handlePayment}
+                    disabled={loading || !instance || !auth?.user?.address}
+                  >
+                    {loading ? "Processing ...." : "Make Payment"}
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,69 @@ import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
 import fs from "fs";
+import orderModel from "../models/orderModel.js";
+import braintree from "braintree";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+//payment gateway
+var gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: process.env.BRAINTREE_MERCHANT_ID,
+    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+    privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
+
+//payment gateway api
+//token
+export const braintreeTokenController = async (req, res) => {
+    try {
+        gateway.clientToken.generate({}, function (err, response) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.send(response);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+//payment
+export const brainTreePaymentController = async (req, res) => {
+    try {
+        const { nonce, cart } = req.body;
+        let total = 0;
+        cart.map((i) => {
+            total += i.price;
+        });
+        let newTransaction = gateway.transaction.sale(
+            {
+                amount: total,
+                paymentMethodNonce: nonce,
+                options: {
+                    submitForSettlement: true,
+                },
+            },
+            function (error, result) {
+                if (result) {
+                    const order = new orderModel({
+                        products: cart,
+                        payment: result,
+                        buyer: req.user._id,
+                    }).save();
+                    res.json({ ok: true });
+                } else {
+                    res.status(500).send(error);
+                }
+            }
+        );
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //create product
 export const createProductController = async (req, res) => {
@@ -51,7 +114,7 @@ export const createProductController = async (req, res) => {
 //get all product
 export const getProductController = async (req, res) => {
     try {
-        const products = await productModel.find({}).select("-photo").limit(12).sort({ createdAt: -1 }).populate('category');
+        const products = await productModel.find({}).select("-photo").populate('category');
         res.status(200).send({
             success: true,
             counTotal: products.length,
@@ -71,24 +134,22 @@ export const getProductController = async (req, res) => {
 
 //get single product
 export const getSingleProductController = async (req, res) => {
-
     try {
-        const product = await productModel.findOne({ slug: req.params.slug }).select('-photo').populate('category');
-        res.status(200).send({
-            success: true,
-            message: "Single product Fetched",
-            product,
-        })
-
+      const product = await productModel.findOne({ _id: req.params.pid }).select("-photo")
+      res.status(200).send({
+        success: true,
+        message: "Single Product Fetched",
+        product,
+      });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: "Error while geting single product",
-            error,
-        });
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Eror while getitng single product",
+        error,
+      });
     }
-}
+  };
 
 //get pgoto
 export const productPhotoController = async (req, res) => {
@@ -167,7 +228,7 @@ export const updateProductController = async (req, res) => {
             products,
         });
     } catch (error) {
-        console.log(error);
+        console.log(error+"NOT UPDATED");
         res.status(500).send({
             success: false,
             error,
@@ -180,46 +241,47 @@ export const updateProductController = async (req, res) => {
 // get product by catgory
 export const productCategoryController = async (req, res) => {
     try {
-      const category = await categoryModel.findOne({ slug: req.params.slug });
-      const products = await productModel.find({ category }).populate("category");
-      res.status(200).send({
-        success: true,
-        category,
-        products,
-      });
+        const category = await categoryModel.findOne({ slug: req.params.slug });
+        const products = await productModel.find({ category }).populate("category");
+        res.status(200).send({
+            success: true,
+            category,
+            products,
+        });
     } catch (error) {
-      console.log(error);
-      res.status(400).send({
-        success: false,
-        error,
-        message: "Error While Getting products",
-      });
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            error,
+            message: "Error While Getting products",
+        });
     }
-  };
+};
 
 
-  // similar products
+// similar products
 export const realtedProductController = async (req, res) => {
     try {
-      const { pid, cid } = req.params;
-      const products = await productModel
-        .find({
-          category: cid,
-          _id: { $ne: pid },
-        })
-        .select("-photo")
-        .limit(3)
-        .populate("category");
-      res.status(200).send({
-        success: true,
-        products,
-      });
+        const { pid, cid } = req.params;
+        const products = await productModel
+            .find({
+                category: cid,
+                _id: { $ne: pid },
+            })
+            .select("-photo")
+            .limit(3)
+            .populate("category");
+        res.status(200).send({
+            success: true,
+            products,
+        });
     } catch (error) {
-      console.log(error);
-      res.status(400).send({
-        success: false,
-        message: "error while geting related product",
-        error,
-      });
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "error while geting related product",
+            error,
+        });
     }
-  };
+};
+

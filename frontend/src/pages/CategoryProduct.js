@@ -16,6 +16,7 @@ const CategoryProduct = () => {
   useEffect(() => {
     if (params?.slug) getPrductsByCat();
   }, [params?.slug]);
+
   const getPrductsByCat = async () => {
     try {
       const { data } = await axios.get(
@@ -55,11 +56,11 @@ const CategoryProduct = () => {
                       <p className="card-text">
                         {p.description.substring(0, 30)}...
                       </p>
-                      <p className="card-text">₹  {p.price}</p>
+                      <p className="card-text">₹ {p.price}</p>
                       <div style={{ marginTop: 'auto' }}>
                         <button
                           className="btn btn-primary btn-sm"
-                          onClick={() => navigate(`/product/${p.slug}`)}
+                          onClick={() => navigate(`/product/${p._id}`)}
                         >
                           More Details
                         </button>
