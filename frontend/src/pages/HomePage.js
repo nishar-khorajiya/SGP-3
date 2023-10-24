@@ -78,7 +78,7 @@ const Home = () => {
         <Row>
           <Col md={4}>
             <Card style={{ borderRadius: cardBorderRadius }}>
-              <Card.Img variant="top" src={require('../pages/photospages/category_cements.jpg')} />
+              <Card.Img variant="top" src={require('../pages/photospages/category_cements.jpg')} style={{width:'100%'}}/>
               <Card.Body>
                 <Card.Title>Cements</Card.Title>
                 <Button variant="primary">Shop Now</Button>
@@ -87,7 +87,7 @@ const Home = () => {
           </Col>
           <Col md={4}>
             <Card style={{ borderRadius: cardBorderRadius }}>
-              <Card.Img variant="top" src={require('../pages/photospages/category_paints.jpg')} />
+              <Card.Img variant="top" src={require('../pages/photospages/category_paints.jpg')} style={{width:'100%'}}/>
               <Card.Body>
                 <Card.Title>House Paints</Card.Title>
                 <Button variant="primary">Shop Now</Button>
@@ -96,7 +96,7 @@ const Home = () => {
           </Col>
           <Col md={4}>
             <Card style={{ borderRadius: cardBorderRadius }}>
-              <Card.Img variant="top" src={require('../pages/photospages/category_tmt.jpg')} style={{'height':'290px'}} />
+              <Card.Img variant="top" src={require('../pages/photospages/category_tmt.jpg')} style={{'height':'290px',width:'100%'}}/>
               <Card.Body>
                 <Card.Title>TMT Bars</Card.Title>
                 <Button variant="primary">Shop Now</Button>
@@ -167,7 +167,7 @@ const Home = () => {
           {videoData.map((video, index) => (
             <Col md={3} key={index}>
               <Card style={{ width: '18rem',borderRadius: cardBorderRadius }}>
-                <Card.Img variant="top" src={video.thumbnail} />
+                <Card.Img variant="top" src={video.thumbnail} style={{width:'100%'}} />
                 <Card.Body>
                   <Card.Title>{video.title}</Card.Title>
                   <Button
