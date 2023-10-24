@@ -136,10 +136,12 @@ export const getProductController = async (req, res) => {
 export const getSingleProductController = async (req, res) => {
     try {
       const product = await productModel.findOne({ _id: req.params.pid }).select("-photo")
+      const category=await categoryModel.findOne({_id:product.category})
       res.status(200).send({
         success: true,
         message: "Single Product Fetched",
         product,
+        category,
       });
     } catch (error) {
       console.log(error);
