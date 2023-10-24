@@ -3,12 +3,15 @@ import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "../pages/pagescss/ProductDetailsStyles.css";
+import { useCart } from "../Context/cartContext";
 
 const ProductDetails = () => {
 
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
+  const [category, setCategory] = useState({});
+  const [cart, setCart] = useCart();
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   //initalp details
@@ -22,6 +25,7 @@ const ProductDetails = () => {
         `http://localhost:8080/api/v1/product/get-product/${params.pid}`
       );
       setProduct(data?.product);
+      setCategory(data?.category);
       getSimilarProduct(data?.product._id, data?.product.category);
     } catch (error) {
       console.log(error);
@@ -61,8 +65,15 @@ const ProductDetails = () => {
               currency: "INR",
             })}
           </h6>
-          <h6>Category : {product?.category?.name}</h6>
-          <button class="btn btn-secondary ms-1">ADD TO CART</button>
+          <h6>Category : {category?.name}</h6>
+          <button class="btn btn-secondary ms-1" onClick={() => {
+            setCart([...cart, product]);
+            localStorage.setItem(
+              "cart",
+              JSON.stringify([...cart, product])
+            );
+            console.log("Item Added to cart");
+          }}>ADD TO CART</button>
         </div>
       </div>
       <hr />
