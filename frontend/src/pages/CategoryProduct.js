@@ -4,6 +4,7 @@ import '../pages/pagescss/ProductDetailsStyles.css'
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Context/cartContext";
+import '../pages/pagescss/categoryproductcss.css';
 
 
 const CategoryProduct = () => {
@@ -35,7 +36,7 @@ const CategoryProduct = () => {
         <h4 className="text-center">Category - {category?.name}</h4>
         <h6 className="text-center">{products?.length} result found </h6>
 
-        <div className="row">
+        <div className="row categoryproduct">
           <div className="col-md-12 offset-1">
             <div className="d-flex flex-wrap">
               {products?.map((p) => (

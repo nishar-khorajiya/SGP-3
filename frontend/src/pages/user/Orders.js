@@ -63,9 +63,9 @@ const Orders = () => {
                     {o?.products?.map((p, i) => (
                       <div className="row mb-2 p-3 card flex-row" key={p._id}>
                         <div className="col-md-6 ">
-                          <img src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`} className="custom-image-class" alt={p.name}/>
+                          <img src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} style={{height:"70%",width:"25%"}}/>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-4">
                           <p>{p.name}</p>
                           <p>{p.description.substring(0, 30)}</p>
                           <p>Price :₹ {p.price}</p>

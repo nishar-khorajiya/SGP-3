@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useAuth } from '../Context/auth';
+import { useNavigate } from 'react-router-dom';
 // import YouTube from 'react-youtube'; // Import react-youtube
 // import { useAuth } from './auth/AuthContext';
 
@@ -50,6 +51,12 @@ const Home = () => {
 
   const cardBorderRadius = '10px';
 
+  const navigate = useNavigate();
+
+  const handleCardClick = (categorySlug) => {
+    navigate(`/category/${categorySlug}`);
+  };
+
   return (
     <Layout title="Home-Ashutosh Enterprise">
       {/* Automatic Carousel */}
@@ -81,7 +88,7 @@ const Home = () => {
               <Card.Img variant="top" src={require('../pages/photospages/category_cements.jpg')} style={{width:'100%'}}/>
               <Card.Body>
                 <Card.Title>Cements</Card.Title>
-                <Button variant="primary">Shop Now</Button>
+                <Button variant="primary" onClick={() => handleCardClick('cement')}>Shop Now</Button>
               </Card.Body>
             </Card>
           </Col>
@@ -90,7 +97,7 @@ const Home = () => {
               <Card.Img variant="top" src={require('../pages/photospages/category_paints.jpg')} style={{width:'100%'}}/>
               <Card.Body>
                 <Card.Title>House Paints</Card.Title>
-                <Button variant="primary">Shop Now</Button>
+                <Button variant="primary" onClick={() => handleCardClick('paint')}>Shop Now</Button>
               </Card.Body>
             </Card>
           </Col>

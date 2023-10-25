@@ -1,0 +1,11 @@
+.offset-1 {
+    margin-left: 0.333333%;
+}
+
+.categoryproduct {
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2em 7em;
+    text-align: center;
+}
