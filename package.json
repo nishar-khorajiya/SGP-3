@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "braintree": "^3.18.0",
-    "braintree-web-drop-in-react": "^1.2.1",
-    "express-formidable": "^1.2.0",
-    "moment": "^2.29.4",
-    "slugify": "^1.6.6"
-  }
-}
